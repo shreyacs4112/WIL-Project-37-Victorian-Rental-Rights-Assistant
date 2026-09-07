@@ -4,7 +4,7 @@ CATEGORY: Repairs and Maintenance
 AUTHORITY: Consumer Affairs Victoria
 SOURCE_URL: https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs/repairs-in-rental-properties
 ACCESS_DATE: 2026-09-04
-LAST_UPDATED: 2026-02-27
+LAST_UPDATED: 2026-02-26
 JURISDICTION: Victoria, Australia
 STATUS: Current source checked on 2026-09-04
 
