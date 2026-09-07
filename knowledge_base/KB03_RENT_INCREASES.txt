@@ -3,10 +3,10 @@ TITLE: Rent Increases
 CATEGORY: Rent Increases
 AUTHORITY: Consumer Affairs Victoria
 SOURCE_URL: https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/rent/rent-increases
-ACCESS_DATE: 2026-09-04
-LAST_UPDATED: 2026-02-27
+SECONDARY_SOURCE_URL: https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/rent/challenging-rent-increases-or-high-rent
+ACCESS_DATE: 2026-09-07
 JURISDICTION: Victoria, Australia
-STATUS: Current source checked on 2026-09-04
+STATUS: Current source checked on 2026-09-07
 
 SUMMARY
 This document summarises Victorian rental rules relating to rent increases for residential rental agreements. It covers how often rent can generally be increased, notice requirements, information that must be included in a rent increase notice, and options available to renters who believe an increase is too high.
@@ -15,7 +15,7 @@ This document summarises Victorian rental rules relating to rent increases for r
 
 For residential rental agreements that started on or after 19 June 2019, rent generally cannot be increased more than once every 12 months.
 
-For agreements that started before 19 June 2019, different rules may apply, including a 6-month limit.
+For agreements that started before 19 June 2019, different rules may apply.
 
 A rental provider cannot increase rent during a fixed-term agreement unless the rental agreement allows for the increase.
 
@@ -41,7 +41,14 @@ A rental provider generally cannot increase rent during a fixed-term rental agre
 
 Where an increase is permitted during a fixed term, the rental agreement must explain how the increase will be calculated.
 
-The calculation may be based on an agreed method such as the Consumer Price Index, a rent index, a percentage or a fixed dollar amount.
+The calculation may be based on an agreed method such as:
+
+- Consumer Price Index (CPI)
+- A rent index
+- A percentage
+- A fixed dollar amount
+
+The rental provider must still comply with applicable notice requirements.
 
 4. INFORMATION ABOUT THE RENT INCREASE
 
@@ -57,17 +64,27 @@ A renter who believes a proposed rent increase is too high can request a rent as
 
 The renter must generally request the assessment within 30 days of receiving the rent increase notice.
 
-Consumer Affairs Victoria can investigate the proposed increase and provide a report.
+Consumer Affairs Victoria can investigate the proposed increase and prepare a rent assessment report.
 
-The renter may use the report when applying to the Victorian Civil and Administrative Tribunal (VCAT).
+The renter and rental provider receive the assessment report.
 
-6. ASSESSING WHETHER A RENT INCREASE IS EXCESSIVE
+If the renter is not satisfied and the dispute remains unresolved, the report can be used as part of the applicable rental dispute-resolution process.
 
-From 31 March 2026, Consumer Affairs Victoria and VCAT have additional considerations when assessing rent increases.
+6. RENT ASSESSMENT AND DISPUTE RESOLUTION
 
-These considerations can include relevant characteristics of the property and the circumstances surrounding the rent increase.
+A Consumer Affairs Victoria rent assessment considers whether the proposed rent is excessive.
 
-The assessment process is intended to help determine whether a proposed increase is excessive in the circumstances.
+The assessment can consider relevant information about the rental property and rental market.
+
+If the dispute remains unresolved after the renter receives the rent assessment report, the renter can use the applicable Rental Dispute Resolution Victoria (RDRV) process.
+
+The renter generally needs to act within the applicable timeframe after receiving the rent assessment report.
+
+RDRV is part of Victoria's current rental dispute-resolution framework.
+
+If a dispute cannot be resolved through the applicable RDRV process, the matter may proceed to the Victorian Civil and Administrative Tribunal (VCAT), where appropriate.
+
+Renters should follow the current instructions provided with their rent assessment report because the appropriate dispute pathway can depend on the circumstances.
 
 7. IF THE RENT INCREASE NOTICE IS INVALID
 
@@ -83,17 +100,25 @@ If the required information or notice is missing, the proposed increase may not 
 
 8. RENT INCREASES AND RENTAL AGREEMENTS
 
-The rental agreement should contain information about rent and how rent increases will be calculated.
+The rental agreement should contain information about rent and how permitted rent increases will be calculated.
 
-Renters should keep copies of their rental agreement and any rent increase notices they receive.
+Renters should keep copies of:
+
+- Their rental agreement
+- Rent increase notices
+- Relevant emails or other communications
+- Consumer Affairs Victoria rent assessment reports
+- Documents relating to any dispute-resolution process
 
 Keeping these records can help if a dispute occurs.
 
 9. RENT INCREASE DISPUTES
 
-If a renter believes the rent increase is excessive, they can seek assistance from Consumer Affairs Victoria.
+If a renter believes a rent increase is excessive, they can request a rent assessment from Consumer Affairs Victoria.
 
-A rent assessment may provide information that can support an application to VCAT.
+If the dispute is not resolved after the assessment, the renter can follow the applicable RDRV dispute-resolution process.
+
+If the dispute remains unresolved, it may proceed to VCAT where appropriate.
 
 Renters should continue meeting their rental agreement obligations while the dispute is being resolved unless a lawful alternative arrangement or order applies.
 
@@ -101,20 +126,20 @@ Renters should continue meeting their rental agreement obligations while the dis
 
 The minimum notice period for residential rental rent increases changed from 60 days to 90 days on 25 November 2025.
 
-This 90-day requirement is therefore treated as the current rule for this knowledge base as of 2026-09-04.
+The 90-day requirement is therefore treated as the current general rule for this knowledge base as of September 2026.
 
 11. IMPORTANT RAG RETRIEVAL TERMS
 
 rent increase
 rent increases
 90 days
+90-day notice
 rent increase notice
 Notice of rent increase
 rental provider
 renter
 fixed-term agreement
 12 months
-6 months
 rent calculation
 Consumer Price Index
 CPI
@@ -125,7 +150,11 @@ excessive rent increase
 high rent
 rent assessment
 Consumer Affairs Victoria
-VCAT
 30 days
+RDRV
+Rental Dispute Resolution Victoria
+VCAT
+Victorian Civil and Administrative Tribunal
 rent dispute
 rental agreement
+25 November 2025
