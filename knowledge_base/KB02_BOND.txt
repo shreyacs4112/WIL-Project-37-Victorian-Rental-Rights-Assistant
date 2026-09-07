@@ -1,117 +1,247 @@
-DOCUMENT_ID: KB01
-TITLE: Repairs in Rental Properties
-CATEGORY: Repairs and Maintenance
+DOCUMENT_ID: KB02
+TITLE: Bond Claims and Refunds
+CATEGORY: Rental Bonds
 AUTHORITY: Consumer Affairs Victoria
-SOURCE_URL: https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs/repairs-in-rental-properties
-ACCESS_DATE: 2026-09-04
-LAST_UPDATED: 2026-02-27
+SOURCE_URL: https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/bond/bond-claims-and-refunds
+ACCESS_DATE: 2026-09-07
+LAST_UPDATED: 2026-06-29
 JURISDICTION: Victoria, Australia
-STATUS: Current source checked on 2026-09-04
+STATUS: Current source checked on 2026-09-07
 
 SUMMARY
-This document summarises Victorian rental rules relating to repairs in rental properties. Repairs are classified as either urgent or non-urgent. Rental providers are responsible for repairs that are not caused by the renter.
+This document summarises Victorian rental rules and processes relating to bond claims and refunds at the end of a rental agreement. Rental bonds are managed by the Residential Tenancies Bond Authority (RTBA). When a rental agreement ends, the bond is repaid according to an agreed claim or an applicable order where there is a dispute.
 
-1. URGENT AND NON-URGENT REPAIRS
+1. BOND CLAIMS AT THE END OF A RENTAL AGREEMENT
 
-Urgent repairs are repairs that make a rental property unsafe or difficult to live in and are legally defined under Victorian rental law.
+When a rental agreement ends, renters and rental providers make a bond claim to the Residential Tenancies Bond Authority (RTBA).
 
-Non-urgent repairs are repairs that are not classified as urgent. A repair is generally non-urgent when the renter can continue to safely live in the property.
+A bond claim tells the RTBA how the bond should be repaid.
 
-Examples of non-urgent repairs can include a broken dishwasher or loose bathroom tiles.
+Bond money is generally returned to renters when they move out unless there is a valid reason for the rental provider to claim some or all of the bond.
 
-Rental providers must arrange urgent repairs immediately. Non-urgent repairs must generally be completed within 14 days after receiving a written repair request.
+Bonds cannot be claimed to pay rent during an ongoing rental agreement.
 
-2. EXAMPLES OF URGENT REPAIRS
+2. REASONS A RENTAL PROVIDER MAY CLAIM BOND
 
-The Consumer Affairs Victoria urgent-repair list includes issues such as:
+A rental provider may claim compensation from the bond because the renter:
 
-- Burst water services
-- Blocked or broken toilet systems
-- Serious roof leaks
-- Gas leaks
-- Dangerous electrical faults
-- Flooding or serious flood damage
-- Serious storm or fire damage
-- Failure of essential hot water, water, cooking, heating or laundering services/appliances
-- Failure of gas, electricity or water supply
-- Failure of a cooling appliance or service provided by the rental provider
-- The property not meeting minimum rental standards
-- A non-working safety device such as a smoke alarm or pool fence
-- Certain appliances, fittings or fixtures causing significant water wastage
-- Faults or damage making the property unsafe or insecure, including certain structural pests, mould or damp issues
-- Serious problems with a lift or staircase
+- Damaged the property
+- Owes rent or other charges after the rental agreement has ended
+- Did not leave the property reasonably clean
+- Is responsible for missing items, such as locks
+- Made certain changes to the property without permission
 
-3. REPORTING REPAIRS
+A rental provider cannot claim bond for fair wear and tear or for damage that was the rental provider's responsibility to repair.
 
-Renters should notify the rental provider or property manager in writing about repairs as soon as possible.
+3. FINAL INSPECTION AND CONDITION REPORT
 
-For urgent repairs, the renter should contact the rental provider or agent immediately, including using the emergency contact number provided when they moved in. The renter should also confirm the request in writing and keep evidence of the request.
+A final inspection is carried out at the end of the rental agreement.
 
-For non-urgent repairs, the request should be in writing and include the date of the request.
+The condition report should be used to compare the condition of the property at the beginning and end of the rental agreement.
 
-4. WHO PAYS FOR REPAIRS
+The renter must either:
 
-The rental provider generally organises and pays for repairs when the damage or fault was not caused by the renter.
+- Be present during the final inspection, or
+- Have been given a reasonable opportunity to attend
 
-If the renter caused the damage, the renter may be responsible for the repair costs.
+Photographs taken at the beginning of the rental agreement can also provide evidence of the property's original condition.
 
-Where repairs require a licence or registration, the work must be completed by a suitably qualified person. Repairs must be completed to the standard expected of a tradesperson.
+4. FAIR WEAR AND TEAR
 
-5. URGENT REPAIRS PAID FOR BY THE RENTER
+Rental providers cannot claim bond to cover fair wear and tear.
 
-If a rental provider or agent does not respond promptly to an urgent repair request, a renter may arrange and pay for the repair themselves when the repair costs $2,500 or less.
+Fair wear and tear is deterioration resulting from:
 
-The renter should keep receipts and provide written notice requesting reimbursement. The rental provider must reimburse the renter within 7 days of receiving the written notice.
+- Reasonable use of the property
+- Natural environmental forces
 
-For urgent repairs costing more than $2,500, the renter should not arrange and pay for the repair themselves. They should seek assistance through Rental Dispute Resolution Victoria (RDRV).
+Examples may include faded curtains or worn kitchen benchtops.
 
-6. NON-URGENT REPAIRS NOT COMPLETED
+Damage such as ripped curtains or broken benchtops may be treated differently from fair wear and tear.
 
-If a rental provider does not complete a non-urgent repair within 14 days of the written request, the renter has options to seek further assistance.
+If renters and rental providers disagree about whether something is reasonable wear and tear or damage, they can seek dispute resolution.
 
-A renter can request a repairs inspection from Consumer Affairs Victoria. The renter may also apply to VCAT if the required repairs have not been completed within the relevant timeframe.
+5. UNPAID RENT OR CHARGES
 
-7. RENT PAYMENTS DURING REPAIRS
+If a renter owes rent after the rental agreement has ended, the rental provider may claim the amount owed from the bond.
 
-Renters must continue paying rent while waiting for repairs to be completed or while waiting for reimbursement for repairs.
+The bond cannot be used to pay rent while the rental agreement is still ongoing.
 
-In some circumstances, a renter can apply for rent to be paid into a Rent Special Account while a repair-related issue is being resolved.
+6. BOND DISPUTES
 
-8. WHEN THE RENTER CAUSED THE DAMAGE
+Sometimes renters and rental providers disagree about how the bond should be distributed.
 
-If the renter caused a fault or damage, the rental provider can require the renter to repair the damage or pay for the repair.
+For example, a renter may believe:
 
-The rental provider must provide a written repair notice explaining the damage, that the renter caused it, and whether the renter is expected to arrange the repair or whether the rental provider will arrange it.
+- They did not cause the alleged damage
+- The damage existed before the rental agreement
+- The issue is fair wear and tear
+- The amount claimed by the rental provider is not appropriate
 
-If the renter is required to organise the repair, it generally must be completed within 14 days and to a tradesperson standard.
+Renters and rental providers are encouraged to negotiate and try to reach an agreement.
 
-9. DISPUTE RESOLUTION
+If the parties cannot agree, a party may seek assistance through Rental Dispute Resolution Victoria (RDRV) or apply to the Victorian Civil and Administrative Tribunal (VCAT), depending on the applicable process.
 
-Renters and rental providers should first try to resolve repair issues by communicating with each other.
+An applicable legally binding order can be submitted to the RTBA, which will distribute the bond according to the order.
 
-Consumer Affairs Victoria provides a free repairs inspection service in relevant circumstances.
+7. CLAIMING A BOND THROUGH THE RTBA
 
-Rental Dispute Resolution Victoria (RDRV) is a free alternative dispute resolution service that can assist with rental disputes.
+Bond claims are made using the RTBA online system.
 
-If a dispute cannot be resolved through RDRV, the matter may proceed to VCAT where appropriate.
+A rental provider must start a claim with the RTBA within 14 days of the rental agreement ending unless a renter starts the claim first.
 
-10. IMPORTANT RAG RETRIEVAL TERMS
+Rental providers must be registered with the RTBA to initiate a claim.
 
-repairs
-urgent repairs
-non-urgent repairs
-rental provider
+8. RENTAL PROVIDER-INITIATED CLAIM
+
+A rental provider will usually start a bond claim after the parties have agreed on how the bond should be repaid.
+
+When the rental provider submits the claim, each renter listed on the bond receives an email notification containing a link to review the claim.
+
+Renters can:
+
+- Review the proposed repayment
+- Accept the claim
+- Request a change if they believe something is incorrect
+
+Renters must accept the claim within 14 days or the transaction will no longer be available to complete.
+
+If everyone accepts the claim, the RTBA will usually repay the bond within one business day.
+
+9. RENTER-INITIATED BOND CLAIM
+
+Any renter whose name is listed on the bond can start a bond claim after the rental agreement ends.
+
+The renter must authenticate their identity with Service Victoria before starting the claim.
+
+The renter does not need to wait for the rental provider to initiate the bond claim.
+
+When a renter starts a claim, the RTBA notifies the other parties listed on the bond.
+
+Other parties generally have 14 days to contest the claim by making an application to VCAT or RDRV.
+
+If nobody contests the claim, the bond is repaid according to the claim after the response period.
+
+The bond can be repaid sooner if all parties agree.
+
+10. CONTESTING A RENTER-INITIATED CLAIM
+
+If another party disagrees with a renter-initiated bond claim, they can contest it through the applicable dispute process.
+
+The party must act within the relevant response period.
+
+If the claim is not contested within the required period, the RTBA can repay the bond according to the renter-initiated claim.
+
+11. VCAT OR RDRV ORDERS
+
+Where a bond dispute requires a decision, an applicable legally binding order can determine how the bond should be distributed.
+
+An order may be necessary when:
+
+- There is a dispute about the distribution of the bond
+- At least one party cannot be contacted
+
+The relevant order or reference can be submitted as part of the RTBA bond-claim process.
+
+Once an applicable order is validated, the RTBA can distribute the bond according to that order.
+
+12. RTBA REVIEW OF DOCUMENTATION
+
+In some circumstances, supporting documentation may need to be attached to a bond claim.
+
+This may occur when:
+
+- An order cannot be automatically validated
+- A court other than VCAT has made an order
+- Other circumstances require the RTBA to review supporting documentation
+
+The RTBA reviews the submitted documentation before completing the bond transaction.
+
+13. BOND REPAYMENT
+
+During the claim process, people receiving a repayment provide their bank account details.
+
+The RTBA pays the bond into the nominated bank account.
+
+Australian and international bank accounts can be used.
+
+People making a claim should carefully check their banking details because the RTBA does not retain renter banking details for verification.
+
+If valid payment details have not been provided, the RTBA may retain the repayment until a valid payment option is provided.
+
+14. PORTABLE RENTAL BONDS
+
+A bond may be transferred to a new rental property through the Portable Rental Bond Scheme.
+
+The same general bond-dispute process applies to a bond that has been transferred.
+
+The rental provider for the previous property can still make a bond claim after the bond has been transferred.
+
+If money is payable to the previous rental provider and there is not enough bond balance remaining after the transfer, the government may pay the rental provider on the renter's behalf.
+
+That amount then becomes a repayment owed by the renter to the State of Victoria.
+
+15. BOND CLOSURE AFTER A PORTABLE BOND TRANSFER
+
+The RTBA can close a bond when:
+
+- Its balance is $0 after transfer to a new rental property
+- The bond is not under dispute
+- No claims have been submitted
+
+People listed on the bond are notified before closure.
+
+They generally have 14 days to dispute the closure by making an application to VCAT or RDRV and providing the relevant reference to the RTBA.
+
+16. HOMES VICTORIA BOND LOANS
+
+Bonds funded by Homes Victoria are generally returned in full to Homes Victoria at the end of the rental agreement.
+
+If a rental provider wants to claim some or all of a Homes Victoria-funded bond, they must obtain an applicable VCAT order.
+
+17. RELEVANT LEGISLATION
+
+Consumer Affairs Victoria identifies the following provisions of the Residential Tenancies Act 1997 in relation to bond claims and refunds:
+
+- Section 411AB – Matters that may be subject of bond claim
+- Section 411AD – Disputed bond claims
+
+18. IMPORTANT RAG RETRIEVAL TERMS
+
+bond
+rental bond
+bond claim
+bond refund
+bond repayment
+RTBA
+Residential Tenancies Bond Authority
 renter
-repair request
-written request
+rental provider
+landlord
+tenant
+bond dispute
+renter-initiated claim
+rental provider-initiated claim
 14 days
-$2500 urgent repair limit
-reimbursement
-7 days
-repairs inspection
+one business day
+property damage
+unpaid rent
+unpaid charges
+cleaning
+missing items
+condition report
+final inspection
+fair wear and tear
+reasonable use
+property damage
 RDRV
+Rental Dispute Resolution Victoria
 VCAT
-rent special account
-repair notice
-minimum rental standards
-property maintenance
+Service Victoria
+Portable Rental Bond Scheme
+portable bond
+transferred bond
+Homes Victoria bond loan
+Residential Tenancies Act 1997
+Section 411AB
+Section 411AD
