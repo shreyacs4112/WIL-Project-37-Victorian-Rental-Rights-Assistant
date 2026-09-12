@@ -99,6 +99,52 @@ def get_demo_response(question):
             "rental-rights knowledge base before generating an answer."
         )
     
+
+def get_demo_evidence(question):
+    """
+    Temporary evidence metadata for UI testing.
+    This will be replaced by retrieved chunks from the RAG pipeline.
+    """
+
+    q = question.lower()
+
+    if any(word in q for word in ["repair", "heater", "broken", "maintenance"]):
+        topic = "KB01_REPAIRS"
+        section = "Repairs and maintenance"
+    elif any(word in q for word in ["bond", "deposit", "refund"]):
+        topic = "KB02_BOND"
+        section = "Bonds"
+    elif any(word in q for word in ["rent increase", "increase rent", "rent higher"]):
+        topic = "KB03_RENT_INCREASES"
+        section = "Rent increases"
+    elif any(word in q for word in ["inspection", "enter", "entry", "landlord come"]):
+        topic = "KB04_ENTRY_INSPECTIONS"
+        section = "Entry and inspections"
+    elif any(word in q for word in ["minimum standard", "minimum standards"]):
+        topic = "KB05_MINIMUM_STANDARDS"
+        section = "Minimum rental standards"
+    elif any(word in q for word in ["moving in", "condition report"]):
+        topic = "KB06_MOVING_IN"
+        section = "Moving in"
+    elif any(word in q for word in ["moving out", "end lease", "ending lease", "vacate"]):
+        topic = "KB07_MOVING_OUT"
+        section = "Moving out"
+    else:
+        topic = "No matching KB topic"
+        section = "No section retrieved"
+
+    return {
+        "source": "Consumer Affairs Victoria",
+        "topic": topic,
+        "section": section,
+        "score": 0.95,
+        "evidence": (
+            "Prototype evidence for interface testing. "
+            "This will be replaced by the actual retrieved knowledge-base "
+            "passage when the RAG backend is connected."
+        ),
+    }
+
 if question:
     # Save and display user's question
     st.session_state.messages.append(
@@ -109,17 +155,18 @@ if question:
         st.markdown(question)
 
     response = get_demo_response(question)
-    
+    evidence = get_demo_evidence(question)
+
     with st.chat_message("assistant"):
         st.markdown(response)
 
     with st.expander("🔎 Retrieved evidence and sources"):
-        st.write(
-            "Retrieved knowledge-base passages and source information "
-            "will be displayed here once the RAG backend is connected."
-        )
+        st.markdown(f"**Source:** {evidence['source']}")
+        st.markdown(f"**Topic:** {evidence['topic']}")
+        st.markdown(f"**Section:** {evidence['section']}")
+        st.markdown(f"**Relevance score:** {evidence['score']}")
+        st.markdown(f"**Evidence:** {evidence['evidence']}")
 
-    # Save assistant response
     st.session_state.messages.append(
         {"role": "assistant", "content": response}
     )
