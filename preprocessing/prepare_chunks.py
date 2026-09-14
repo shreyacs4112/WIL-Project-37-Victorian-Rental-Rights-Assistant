@@ -1,26 +1,34 @@
 """Prepare Victorian rental-rights documents for retrieval.
 
 This module reads the curated KB01-KB07 text documents, extracts metadata,
-summaries, and numbered sections, validates the document structure, and
-prepares the knowledge base for later chunk generation.
+summaries, and numbered sections, validates the document structure, creates
+retrieval-ready chunks, validates those chunks, and exports them as JSON.
 
 The original knowledge-base files are treated as read-only source documents.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from pathlib import Path
+import json
 import re
 from typing import Optional
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 KNOWLEDGE_BASE_DIR = PROJECT_ROOT / "knowledge_base"
+PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
+OUTPUT_PATH = PROCESSED_DATA_DIR / "kb_chunks.json"
 
 
 SECTION_PATTERN = re.compile(
     r"^\s*(\d{1,2})\.\s+(.+?)\s*$",
     re.MULTILINE,
 )
+
+
+EXCLUDED_SECTION_TITLES = {
+    "IMPORTANT RAG RETRIEVAL TERMS",
+}
 
 
 REQUIRED_METADATA_FIELDS = (
@@ -67,6 +75,26 @@ class KnowledgeDocument:
     metadata: DocumentMetadata
     summary: str
     sections: tuple[Section, ...]
+
+
+@dataclass(frozen=True)
+class Chunk:
+    """Retrieval-ready chunk with preserved source metadata."""
+
+    chunk_id: str
+    document_id: str
+    title: str
+    category: str
+    authority: str
+    source_url: str
+    secondary_source_url: Optional[str]
+    access_date: str
+    last_updated: Optional[str]
+    jurisdiction: str
+    status: str
+    section_number: int
+    section_title: str
+    text: str
 
 
 def _normalise_text(text: str) -> str:
@@ -244,7 +272,7 @@ def validate_document(document: KnowledgeDocument) -> list[str]:
             )
 
         if (
-            section.title.upper() != "IMPORTANT RAG RETRIEVAL TERMS"
+            section.title.upper() not in EXCLUDED_SECTION_TITLES
             and not section.text
         ):
             errors.append(
@@ -300,36 +328,153 @@ def validate_knowledge_base(
     return errors
 
 
+def create_chunks(
+    documents: tuple[KnowledgeDocument, ...],
+) -> tuple[Chunk, ...]:
+    """Create one retrieval-ready chunk per semantic numbered section."""
+
+    chunks = []
+
+    for document in documents:
+        metadata = document.metadata
+
+        for section in document.sections:
+            if section.title.upper() in EXCLUDED_SECTION_TITLES:
+                continue
+
+            chunk_id = (
+                f"{metadata.document_id}_S{section.number}"
+            )
+
+            chunks.append(
+                Chunk(
+                    chunk_id=chunk_id,
+                    document_id=metadata.document_id,
+                    title=metadata.title,
+                    category=metadata.category,
+                    authority=metadata.authority,
+                    source_url=metadata.source_url,
+                    secondary_source_url=metadata.secondary_source_url,
+                    access_date=metadata.access_date,
+                    last_updated=metadata.last_updated,
+                    jurisdiction=metadata.jurisdiction,
+                    status=metadata.status,
+                    section_number=section.number,
+                    section_title=section.title,
+                    text=section.text,
+                )
+            )
+
+    return tuple(chunks)
+
+
+def validate_chunks(
+    chunks: tuple[Chunk, ...],
+) -> list[str]:
+    """Validate retrieval-ready chunks before export."""
+
+    errors = []
+    seen_chunk_ids = set()
+
+    for chunk in chunks:
+        if chunk.chunk_id in seen_chunk_ids:
+            errors.append(
+                f"Duplicate chunk ID: {chunk.chunk_id}"
+            )
+
+        seen_chunk_ids.add(chunk.chunk_id)
+
+        if not chunk.document_id:
+            errors.append(
+                f"{chunk.chunk_id}: missing document ID"
+            )
+
+        if not chunk.section_title:
+            errors.append(
+                f"{chunk.chunk_id}: missing section title"
+            )
+
+        if not chunk.text:
+            errors.append(
+                f"{chunk.chunk_id}: empty chunk text"
+            )
+
+        if not chunk.source_url:
+            errors.append(
+                f"{chunk.chunk_id}: missing source URL"
+            )
+
+    return errors
+
+
+def write_chunks(
+    chunks: tuple[Chunk, ...],
+    output_path: Path = OUTPUT_PATH,
+) -> None:
+    """Write retrieval-ready chunks to JSON."""
+
+    output_path.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    serialised_chunks = [
+        asdict(chunk)
+        for chunk in chunks
+    ]
+
+    with output_path.open(
+        "w",
+        encoding="utf-8",
+    ) as output_file:
+        json.dump(
+            serialised_chunks,
+            output_file,
+            indent=2,
+            ensure_ascii=False,
+        )
+
+        output_file.write("\n")
+
+
 def main() -> None:
-    """Load and validate the current knowledge base."""
+    """Validate the KB and generate retrieval-ready chunks."""
 
     documents = load_documents()
-    errors = validate_knowledge_base(documents)
 
     print(f"Documents loaded: {len(documents)}")
 
-    if errors:
-        print("Validation failed:")
+    document_errors = validate_knowledge_base(documents)
 
-        for error in errors:
+    if document_errors:
+        print("Document validation failed:")
+
+        for error in document_errors:
             print(f"- {error}")
 
         raise SystemExit(1)
 
-    print("Validation passed.")
+    print("Document validation passed.")
 
-    for document in documents:
-        retrieval_sections = [
-            section
-            for section in document.sections
-            if section.title.upper()
-            != "IMPORTANT RAG RETRIEVAL TERMS"
-        ]
+    chunks = create_chunks(documents)
 
-        print(
-            f"{document.metadata.document_id}: "
-            f"{len(retrieval_sections)} retrieval sections"
-        )
+    print(f"Chunks created: {len(chunks)}")
+
+    chunk_errors = validate_chunks(chunks)
+
+    if chunk_errors:
+        print("Chunk validation failed:")
+
+        for error in chunk_errors:
+            print(f"- {error}")
+
+        raise SystemExit(1)
+
+    print("Chunk validation passed.")
+
+    write_chunks(chunks)
+
+    print(f"Output written to: {OUTPUT_PATH}")
 
 
 if __name__ == "__main__":
