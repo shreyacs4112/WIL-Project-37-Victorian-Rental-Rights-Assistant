@@ -1,0 +1,1 @@
+question_id,topic,question,answerable,expected_source,retrieved_source,top1_correct,top3_correct,top5_correct,generated_answer,correctness_score,faithfulness_score,source_attribution_score,refusal_correct,notes
