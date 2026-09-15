@@ -1,0 +1,184 @@
+DOCUMENT_ID: KB04
+TITLE: Rental Provider Entry Rights and Property Inspections
+CATEGORY: Property Entry and Inspections
+AUTHORITY: Consumer Affairs Victoria
+SOURCE_URL: https://www.consumer.vic.gov.au/housing/renting/rental-providers-inspecting-or-entering-a-property/when-a-rental-provider-can-enter-a-property
+ACCESS_DATE: 2026-09-04
+LAST_UPDATED: 2025-04-23
+JURISDICTION: Victoria, Australia
+STATUS: Current source checked on 2026-09-04
+
+SUMMARY
+This document summarises Victorian rules about when rental providers and their agents can enter a rented property. Entry is only permitted for specific lawful reasons and must follow the required notice and timing rules.
+
+1. RIGHT OF ENTRY
+
+Rental providers and their agents have a legal right to enter a rental property in certain circumstances.
+
+Renters must generally allow entry when the rental provider or agent is legally entitled to enter and has provided the required notice.
+
+Entry can include entering the property as a whole, including outdoor areas such as gardens.
+
+2. REASONS FOR ENTRY
+
+A rental provider or agent may enter a rental property for reasons including:
+
+- General or routine inspection
+- Repairs or other legal responsibilities
+- Showing the property to prospective renters
+- Showing the property to prospective buyers or lenders
+- Having the property valued
+- Taking photographs or videos for advertising
+- Investigating whether the renter has breached legal or rental agreement obligations
+- Certain inspections connected with VCAT family violence proceedings
+
+The reason for entry determines the minimum notice period.
+
+3. MINIMUM NOTICE PERIODS
+
+The minimum written notice generally required is:
+
+- General or routine inspection: 7 days
+- Repairs or other legal responsibilities: 24 hours
+- Showing the property to prospective renters, buyers or lenders: 48 hours
+- Property valuation: 7 days
+- Taking photographs or videos for advertising: 7 days
+- Believing the renter has breached their obligations: 24 hours
+- Certain VCAT family violence proceedings: 24 hours
+
+4. WHEN ENTRY CAN OCCUR
+
+A rental provider or agent can generally enter between 8 am and 6 pm on any day except a public holiday.
+
+Entry outside these hours is only permitted if the renter agrees.
+
+The agreement to enter outside the normal hours must be made no more than 7 days before the intended entry.
+
+5. WHEN A RENTER CAN REFUSE ENTRY
+
+A renter can refuse entry in circumstances such as:
+
+- Entry is outside the permitted hours without the renter's agreement
+- The day is a public holiday
+- Required written notice was not provided
+- Notice was not provided within the required timeframe
+- A routine inspection has already occurred within the previous 6 months
+- A prospective-renter inspection is being requested outside the permitted period
+
+A renter may also seek an order from VCAT to limit entry times where there are good reasons for doing so.
+
+6. GENERAL OR ROUTINE INSPECTIONS
+
+A general inspection is used to check the condition of the rental property and whether the renter is meeting their obligations.
+
+A general inspection:
+
+- Cannot normally occur during the first 3 months of the rental agreement
+- Can occur no more than once every 6 months
+- Requires at least 7 days' notice
+
+The rental provider or agent can inspect all areas of the property during a general inspection.
+
+7. SHOWING THE PROPERTY TO PROSPECTIVE RENTERS
+
+A rental provider or agent can show the property to prospective renters when the current renter has given notice that they intend to leave or when the rental provider has given a notice to vacate.
+
+An open inspection for prospective renters must occur no more than 21 days before the end of the rental agreement.
+
+Prospective renters generally cannot be shown the property more than twice per week or for longer than one hour at a time unless the current renter agrees to different arrangements.
+
+8. SHOWING THE PROPERTY TO BUYERS OR LENDERS
+
+A rental provider or agent can show the property to prospective buyers when the property is going to be sold.
+
+The renter must generally have been told that the owner intends to sell the property at least 14 days before the inspection.
+
+The rental provider must make reasonable efforts to agree with the renter about suitable inspection days and times.
+
+Prospective buyer inspections generally cannot occur more than twice per week or for longer than one hour each time unless the renter agrees otherwise.
+
+9. COMPENSATION FOR SALES INSPECTIONS
+
+When a rental provider enters the property to hold a sales inspection for prospective buyers, the renter must generally receive compensation.
+
+The compensation is the greater of:
+
+- Half a day's rent
+- $30
+
+10. PHOTOGRAPHS AND VIDEOS FOR ADVERTISING
+
+A rental provider or agent may enter to take photographs or videos for advertising after giving the required notice.
+
+Renters can object in writing when photographs or videos would reveal certain personal, sensitive, valuable or identifying possessions.
+
+If a renter makes a valid objection, the rental provider or agent must not include those items in the advertising material.
+
+In some circumstances, the renter can request to see advertising photographs or videos before they are used.
+
+11. ENTRY WHEN THE RENTER IS NOT HOME
+
+A rental provider or agent can enter when the renter is not home if valid written notice has been provided or the renter has agreed to the entry.
+
+The renter does not generally need to be present during a lawful entry.
+
+12. RENTERS DO NOT GENERALLY HAVE TO LEAVE
+
+A rental provider may ask a renter to leave during an inspection or property showing, but a renter is generally not required to leave simply because the rental provider or agent is entering lawfully.
+
+13. RENTAL PROVIDERS MUST ACT REASONABLY
+
+A rental provider or agent must exercise entry rights reasonably.
+
+They should not stay longer than necessary for the purpose of the visit unless the renter agrees.
+
+Unreasonable entry or repeated unnecessary visits can be challenged.
+
+A renter may apply to VCAT where entry rights are being misused or legal duties have been breached.
+
+14. DAMAGE DURING ENTRY
+
+If a renter's belongings are damaged or taken while the rental provider or agent is on the property, the renter may be able to apply to VCAT for compensation.
+
+15. FORMS
+
+Consumer Affairs Victoria provides forms including:
+
+- Notice to renter of entry to rented premises
+- Notice of intention to sell the property
+- Notice of breach of duty to renter of rented premises
+
+16. RELEVANT LAW
+
+Rental provider entry rights and responsibilities are covered by sections 85–91A of the Residential Tenancies Act 1997.
+
+17. IMPORTANT RAG RETRIEVAL TERMS
+
+property entry
+entry rights
+rental provider entry
+agent entry
+routine inspection
+general inspection
+inspection notice
+7 days notice
+24 hours notice
+48 hours notice
+8 am
+6 pm
+public holiday
+6 months
+first 3 months
+prospective renter
+prospective buyer
+property valuation
+advertising photos
+advertising videos
+sales inspection
+$30 compensation
+half a day's rent
+21 days
+twice per week
+one hour
+VCAT
+Residential Tenancies Act 1997
