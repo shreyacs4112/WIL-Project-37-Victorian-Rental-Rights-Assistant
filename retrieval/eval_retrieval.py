@@ -21,10 +21,12 @@ def dcg_at_k(relevances, k):
 
 
 def ndcg_at_k(ranked_chunk_ids, relevant_ids, k):
-    relevances = [1 if cid in relevant_ids else 0 for cid in ranked_chunk_ids]
+    relevances = [1 if cid in relevant_ids else 0 for cid in ranked_chunk_ids[:k]]
     dcg = dcg_at_k(relevances, k)
-    ideal_relevances = sorted(relevances, reverse=True)
+
+    ideal_relevances = [1] * min(len(relevant_ids), k)
     idcg = dcg_at_k(ideal_relevances, k)
+
     return dcg / idcg if idcg > 0 else 0.0
 
 

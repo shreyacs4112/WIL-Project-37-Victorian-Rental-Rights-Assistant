@@ -7,8 +7,10 @@ embeddings indexed with FAISS.
 import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
-from load_kb import load_knowledge_base
-
+try:
+    from .load_kb import load_knowledge_base
+except ImportError:
+    from load_kb import load_knowledge_base
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
 
