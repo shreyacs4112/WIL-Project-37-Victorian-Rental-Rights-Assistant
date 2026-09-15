@@ -43,6 +43,7 @@ if question:
 
     response = rag_result["answer"]
     retrieved_chunks = rag_result["retrieved_chunks"]
+
     
     with st.chat_message("assistant"):
         st.markdown(response)
@@ -53,6 +54,8 @@ if question:
                 st.markdown(f"### Evidence {i}")
                 st.markdown(f"**Source:** {chunk.get('source', 'Unknown source')}")
                 st.markdown(f"**Topic:** {chunk.get('topic', 'Unknown topic')}")
+                st.markdown(f"**Section:** {chunk.get('section', 'Unknown section')}")
+                st.markdown(f"**Chunk ID:** {chunk.get('chunk_id', 'Unknown chunk')}")
                 st.markdown(f"**Relevance score:** {chunk.get('score', 'N/A')}")
                 st.markdown(f"**Evidence:** {chunk.get('text', '')}")
         else:
