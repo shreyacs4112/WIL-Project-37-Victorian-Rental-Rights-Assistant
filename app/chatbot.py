@@ -44,6 +44,7 @@ if question:
     response = rag_result["answer"]
     retrieved_chunks = rag_result["retrieved_chunks"]
 
+    
     with st.chat_message("assistant"):
         st.markdown(response)
 
