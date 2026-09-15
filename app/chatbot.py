@@ -58,7 +58,6 @@ if question:
         else:
             st.write("No evidence was retrieved.")
 
-    # Save assistant response
     st.session_state.messages.append(
         {"role": "assistant", "content": response}
     )
