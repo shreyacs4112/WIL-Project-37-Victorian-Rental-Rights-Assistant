@@ -1,20 +1,27 @@
 from typing import List, Dict
+from retrieval.bm25_retrieval import BM25Retriever
+from retrieval.load_kb import load_knowledge_base
 
+_chunks = load_knowledge_base()
+_retriever = BM25Retriever(_chunks)
 
-def retrieve_context(question: str) -> List[Dict]:
+def retrieve_context(question: str, top_k: int = 5) -> List[Dict]:
     """
-    Mock retrieval used for integration testing.
-
-    This will be replaced by the team's real retrieval component.
+    Retrieve the most relevant rental-rights knowledge-base chunks
+    using the BM25 retriever.
     """
+    results = _retriever.search(question, top_k=top_k)
 
     return [
         {
-            "text": "Example retrieved rental-rights passage for prototype testing.",
-            "source": "Mock Victorian rental-rights source",
-            "topic": "KB01_REPAIRS",
-            "score": 0.95
+            "text": chunk.text,
+            "source": chunk.source_url,
+            "topic": chunk.doc_id,
+            "section": chunk.section_title,
+            "chunk_id": chunk.chunk_id,
+            "score": float(score),
         }
+        for chunk, score in results
     ]
 
 

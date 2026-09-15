@@ -1,4 +1,5 @@
 import streamlit as st
+from rag.pipeline import run_rag_pipeline
 
 st.set_page_config(
     page_title="Victorian Rental Rights Assistant",
@@ -28,122 +29,6 @@ for message in st.session_state.messages:
 # User input
 question = st.chat_input("Ask a rental-rights question...")
 
-def get_demo_response(question):
-    """
-    Temporary rule-based responses for UI testing.
-    This will be replaced by the real RAG pipeline later.
-    """
-
-    q = question.lower()
-
-    if any(word in q for word in ["repair", "heater", "broken", "maintenance"]):
-        return (
-            "Repairs and maintenance are an important part of Victorian rental rights. "
-            "If something in the rental property needs repair, the appropriate next step "
-            "depends on the type and urgency of the problem. "
-            "The final RAG system will retrieve the relevant Victorian rental guidance "
-            "and show the supporting source for this question."
-        )
-
-    elif any(word in q for word in ["bond", "deposit", "refund"]):
-        return (
-            "Bond issues can include bond lodgement, claims, deductions and refunds. "
-            "The correct process depends on the circumstances of the rental agreement. "
-            "The final RAG system will retrieve the relevant Victorian bond information "
-            "and provide the supporting source."
-        )
-
-    elif any(word in q for word in ["rent increase", "increase rent", "rent higher"]):
-        return (
-            "Victorian rental rules place requirements around rent increases, "
-            "including how and when renters are notified. "
-            "The final RAG system will retrieve the relevant information for your "
-            "situation and display the supporting Victorian source."
-        )
-
-    elif any(word in q for word in ["inspection", "enter", "entry", "landlord come"]):
-        return (
-            "Rental providers and agents must follow Victorian requirements when "
-            "entering a rented property or conducting inspections. "
-            "The final RAG system will retrieve the relevant entry and inspection "
-            "guidance and show the supporting source."
-        )
-
-    elif any(word in q for word in ["minimum standard", "minimum standards"]):
-        return (
-            "Victorian rental properties are subject to minimum rental standards. "
-            "The final RAG system will retrieve the relevant standard from the "
-            "knowledge base and provide the supporting evidence."
-        )
-
-    elif any(word in q for word in ["moving in", "condition report"]):
-        return (
-            "Moving into a rental property can involve important steps such as "
-            "checking the condition of the property and reviewing the condition report. "
-            "The final RAG system will retrieve the relevant Victorian guidance and "
-            "show its source."
-        )
-
-    elif any(word in q for word in ["moving out", "end lease", "ending lease", "vacate"]):
-        return (
-            "Ending a rental agreement can involve notice requirements, property "
-            "condition, bond matters and other responsibilities. "
-            "The final RAG system will retrieve the relevant Victorian guidance "
-            "and display the supporting source."
-        )
-
-    else:
-        return (
-            "I could not match this question to one of the current rental-rights "
-            "topics in the prototype. The full RAG system will search the Victorian "
-            "rental-rights knowledge base before generating an answer."
-        )
-    
-
-def get_demo_evidence(question):
-    """
-    Temporary evidence metadata for UI testing.
-    This will be replaced by retrieved chunks from the RAG pipeline.
-    """
-
-    q = question.lower()
-
-    if any(word in q for word in ["repair", "heater", "broken", "maintenance"]):
-        topic = "KB01_REPAIRS"
-        section = "Repairs and maintenance"
-    elif any(word in q for word in ["bond", "deposit", "refund"]):
-        topic = "KB02_BOND"
-        section = "Bonds"
-    elif any(word in q for word in ["rent increase", "increase rent", "rent higher"]):
-        topic = "KB03_RENT_INCREASES"
-        section = "Rent increases"
-    elif any(word in q for word in ["inspection", "enter", "entry", "landlord come"]):
-        topic = "KB04_ENTRY_INSPECTIONS"
-        section = "Entry and inspections"
-    elif any(word in q for word in ["minimum standard", "minimum standards"]):
-        topic = "KB05_MINIMUM_STANDARDS"
-        section = "Minimum rental standards"
-    elif any(word in q for word in ["moving in", "condition report"]):
-        topic = "KB06_MOVING_IN"
-        section = "Moving in"
-    elif any(word in q for word in ["moving out", "end lease", "ending lease", "vacate"]):
-        topic = "KB07_MOVING_OUT"
-        section = "Moving out"
-    else:
-        topic = "No matching KB topic"
-        section = "No section retrieved"
-
-    return {
-        "source": "Consumer Affairs Victoria",
-        "topic": topic,
-        "section": section,
-        "score": 0.95,
-        "evidence": (
-            "Prototype evidence for interface testing. "
-            "This will be replaced by the actual retrieved knowledge-base "
-            "passage when the RAG backend is connected."
-        ),
-    }
 
 if question:
     # Save and display user's question
@@ -154,18 +39,26 @@ if question:
     with st.chat_message("user"):
         st.markdown(question)
 
-    response = get_demo_response(question)
-    evidence = get_demo_evidence(question)
+    rag_result = run_rag_pipeline(question)
+
+    response = rag_result["answer"]
+    retrieved_chunks = rag_result["retrieved_chunks"]
 
     with st.chat_message("assistant"):
         st.markdown(response)
 
     with st.expander("🔎 Retrieved evidence and sources"):
-        st.markdown(f"**Source:** {evidence['source']}")
-        st.markdown(f"**Topic:** {evidence['topic']}")
-        st.markdown(f"**Section:** {evidence['section']}")
-        st.markdown(f"**Relevance score:** {evidence['score']}")
-        st.markdown(f"**Evidence:** {evidence['evidence']}")
+        if retrieved_chunks:
+            for i, chunk in enumerate(retrieved_chunks, start=1):
+                st.markdown(f"### Evidence {i}")
+                st.markdown(f"**Source:** {chunk.get('source', 'Unknown source')}")
+                st.markdown(f"**Topic:** {chunk.get('topic', 'Unknown topic')}")
+                st.markdown(f"**Section:** {chunk.get('section', 'Unknown section')}")
+                st.markdown(f"**Chunk ID:** {chunk.get('chunk_id', 'Unknown chunk')}")
+                st.markdown(f"**Relevance score:** {chunk.get('score', 'N/A')}")
+                st.markdown(f"**Evidence:** {chunk.get('text', '')}")
+        else:
+            st.write("No evidence was retrieved.")
 
     st.session_state.messages.append(
         {"role": "assistant", "content": response}
