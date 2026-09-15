@@ -5,8 +5,10 @@ BM25 sparse retrieval over the rental knowledge base chunks.
 
 import re
 from rank_bm25 import BM25Okapi
-from load_kb import load_knowledge_base
-
+try:
+    from .load_kb import load_knowledge_base
+except ImportError:
+    from load_kb import load_knowledge_base
 
 def tokenize(text: str):
     return re.findall(r"[a-z0-9]+", text.lower())
