@@ -10,5 +10,17 @@
     "relevant_chunk_ids": ["KB01_S1", "KB01_S2"],
     "expected_evidence": "Urgent repairs are repairs that make a rental property unsafe or difficult to live in. Examples include burst water services, blocked or broken toilets, serious roof leaks, gas leaks, dangerous electrical faults, loss of essential services, and faults or damage that make the property unsafe or insecure.",
     "expected_behavior": "answer"
+  },
+  {
+    "question_id": "Q002",
+    "kb_topic": "KB01",
+    "question": "My heater has stopped working. Would this normally be considered an urgent repair?",
+    "question_type": "paraphrased",
+    "in_scope": true,
+    "expected_source": "Consumer Affairs Victoria - Repairs in Rental Properties",
+    "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs/repairs-in-rental-properties",
+    "relevant_chunk_ids": ["KB01_S2"],
+    "expected_evidence": "Failure of an essential heating service or appliance is included in the urgent-repair list.",
+    "expected_behavior": "answer"
   }
 ]
