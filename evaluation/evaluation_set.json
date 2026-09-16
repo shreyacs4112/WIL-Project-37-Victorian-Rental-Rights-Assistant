@@ -22,30 +22,29 @@
     "relevant_chunk_ids": ["KB01_S2"],
     "expected_evidence": "Failure of an essential heating service or appliance is included in the urgent-repair list.",
     "expected_behavior": "answer"
+  },
+  {
+    "question_id": "Q003",
+    "kb_topic": "KB01",
+    "question": "What can I do if a non-urgent repair is not completed within 14 days?",
+    "question_type": "direct",
+    "in_scope": true,
+    "expected_source": "Consumer Affairs Victoria - Repairs in Rental Properties",
+    "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs/repairs-in-rental-properties",
+    "relevant_chunk_ids": ["KB01_S6"],
+    "expected_evidence": "If a rental provider does not complete a non-urgent repair within 14 days of the written request, the renter can request a repairs inspection from Consumer Affairs Victoria and may also apply to VCAT.",
+    "expected_behavior": "answer"
+  },
+  {
+    "question_id": "Q004",
+    "kb_topic": "KB01",
+    "question": "If my landlord ignores an urgent repair, can I organise the repair myself?",
+    "question_type": "paraphrased",
+    "in_scope": true,
+    "expected_source": "Consumer Affairs Victoria - Repairs in Rental Properties",
+    "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs/repairs-in-rental-properties",
+    "relevant_chunk_ids": ["KB01_S5"],
+    "expected_evidence": "If the rental provider or agent does not respond promptly to an urgent repair request, a renter may arrange and pay for the repair themselves when the cost is $2,500 or less, keep receipts, and request reimbursement.",
+    "expected_behavior": "answer"
   }
-  {
-  "question_id": "Q003",
-  "kb_topic": "KB01",
-  "question": "What can I do if a non-urgent repair is not completed within 14 days?",
-  "question_type": "direct",
-  "in_scope": true,
-  "expected_source": "Consumer Affairs Victoria - Repairs in Rental Properties",
-  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs/repairs-in-rental-properties",
-  "relevant_chunk_ids": ["KB01_S6"],
-  "expected_evidence": "If a rental provider does not complete a non-urgent repair within 14 days of the written request, the renter can request a repairs inspection from Consumer Affairs Victoria and may also apply to VCAT.",
-  "expected_behavior": "answer"
-}
-  {
-  "question_id": "Q004",
-  "kb_topic": "KB01",
-  "question": "If my landlord ignores an urgent repair, can I organise the repair myself?",
-  "question_type": "paraphrased",
-  "in_scope": true,
-  "expected_source": "Consumer Affairs Victoria - Repairs in Rental Properties",
-  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/repairs/repairs-in-rental-properties",
-  "relevant_chunk_ids": ["KB01_S5"],
-  "expected_evidence": "If the rental provider or agent does not respond promptly to an urgent repair request, a renter may arrange and pay for the repair themselves when the cost is $2,500 or less, keep receipts, and request reimbursement.",
-  "expected_behavior": "answer"
-}
-
 ]
