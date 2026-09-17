@@ -282,5 +282,52 @@
   "relevant_chunk_ids": ["KB06_S14"],
   "expected_evidence": "Renters should keep important records including the rental agreement, condition report, photographs, bond receipt and bond number, rent records, repair requests, communications with the rental provider or agent, and notices received.",
   "expected_behavior": "answer"
+}{
+  "question_id": "Q025",
+  "kb_topic": "KB07",
+  "question": "How much notice does a renter generally need to give when leaving at the end of a rental agreement?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Ending the Rental Agreement and Moving Out",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/moving-out-giving-notice-and-evictions/giving-notice-as-a-renter/renter-giving-notice",
+  "relevant_chunk_ids": ["KB07_S2"],
+  "expected_evidence": "A renter generally needs to give 28 days' notice if they want to leave at the end of their rental agreement. For a fixed-term agreement, the notice should not specify a date earlier than the agreement's end date unless a lawful early-termination reason applies.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q026",
+  "kb_topic": "KB07",
+  "question": "If I leave my rental early without a lawful reason, could I have to pay extra costs?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Ending the Rental Agreement and Moving Out",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/moving-out-giving-notice-and-evictions/giving-notice-as-a-renter/renter-giving-notice",
+  "relevant_chunk_ids": ["KB07_S7"],
+  "expected_evidence": "Leaving before the rental agreement ends without a lawful reason or agreement can amount to breaking the rental agreement. The renter may have to pay reasonable costs caused by the early termination, such as rent until a new renter moves in or the agreement ends, advertising costs, and reasonable costs of finding a new renter.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q027",
+  "kb_topic": "KB07",
+  "question": "What should a renter do before moving out?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Ending the Rental Agreement and Moving Out",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/moving-out-giving-notice-and-evictions/giving-notice-as-a-renter/renter-giving-notice",
+  "relevant_chunk_ids": ["KB07_S10"],
+  "expected_evidence": "Before leaving, renters should reasonably clean the property, remove belongings and rubbish, return required keys, pay lawful amounts owed, complete any required final inspection process, keep important records, and take photographs of the property's final condition.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q028",
+  "kb_topic": "KB07",
+  "question": "Can my landlord take money from my bond for normal wear and tear after I move out?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Ending the Rental Agreement and Moving Out",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/moving-out-giving-notice-and-evictions/giving-notice-as-a-renter/renter-giving-notice",
+  "relevant_chunk_ids": ["KB07_S11", "KB07_S13"],
+  "expected_evidence": "Renters are generally responsible for damage they caused but not for normal fair wear and tear. Fair wear and tear cannot be claimed as damage from the bond.",
+  "expected_behavior": "answer"
 }
 ]
