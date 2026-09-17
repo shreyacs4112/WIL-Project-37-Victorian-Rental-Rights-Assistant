@@ -141,5 +141,52 @@
   "relevant_chunk_ids": ["KB03_S5"],
   "expected_evidence": "A renter who believes a proposed rent increase is too high can request a rent assessment from Consumer Affairs Victoria, generally within 30 days of receiving the rent increase notice.",
   "expected_behavior": "answer"
+}{
+  "question_id": "Q013",
+  "kb_topic": "KB04",
+  "question": "How much notice is required for a routine property inspection?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rental Provider Entry Rights and Property Inspections",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rental-providers-inspecting-or-entering-a-property/when-a-rental-provider-can-enter-a-property",
+  "relevant_chunk_ids": ["KB04_S3", "KB04_S6"],
+  "expected_evidence": "A general or routine inspection requires at least 7 days' written notice and can normally occur no more than once every 6 months.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q014",
+  "kb_topic": "KB04",
+  "question": "Can my property manager come for an inspection at 7 pm?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rental Provider Entry Rights and Property Inspections",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rental-providers-inspecting-or-entering-a-property/when-a-rental-provider-can-enter-a-property",
+  "relevant_chunk_ids": ["KB04_S4"],
+  "expected_evidence": "A rental provider or agent can generally enter between 8 am and 6 pm on any day except a public holiday. Entry outside these hours is only permitted if the renter agrees.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q015",
+  "kb_topic": "KB04",
+  "question": "When can a renter refuse entry to a rental property?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rental Provider Entry Rights and Property Inspections",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rental-providers-inspecting-or-entering-a-property/when-a-rental-provider-can-enter-a-property",
+  "relevant_chunk_ids": ["KB04_S5"],
+  "expected_evidence": "A renter can refuse entry in circumstances including when required written notice was not provided, the notice period was insufficient, entry is outside permitted hours without agreement, the day is a public holiday, or a routine inspection has already occurred within the previous 6 months.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q016",
+  "kb_topic": "KB04",
+  "question": "Do I get any compensation if the landlord holds inspections for people wanting to buy the property?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rental Provider Entry Rights and Property Inspections",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rental-providers-inspecting-or-entering-a-property/when-a-rental-provider-can-enter-a-property",
+  "relevant_chunk_ids": ["KB04_S9"],
+  "expected_evidence": "For a sales inspection involving prospective buyers, the renter must generally receive compensation equal to the greater of half a day's rent or $30.",
+  "expected_behavior": "answer"
 }
 ]
