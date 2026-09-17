@@ -188,5 +188,52 @@
   "relevant_chunk_ids": ["KB04_S9"],
   "expected_evidence": "For a sales inspection involving prospective buyers, the renter must generally receive compensation equal to the greater of half a day's rent or $30.",
   "expected_behavior": "answer"
+}{
+  "question_id": "Q017",
+  "kb_topic": "KB05",
+  "question": "What heating is required in a rental property?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rental Properties - Minimum Standards",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/minimum-standards/minimum-standards-for-rental-properties",
+  "relevant_chunk_ids": ["KB05_S4"],
+  "expected_evidence": "A rental property must have a fixed heater in good working order in the main living area. For rental agreements entered into from 29 March 2023, the fixed heater must also meet the applicable energy-efficiency requirement.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q018",
+  "kb_topic": "KB05",
+  "question": "There is mould caused by the building structure in my rental. Does this meet the minimum standards?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rental Properties - Minimum Standards",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/minimum-standards/minimum-standards-for-rental-properties",
+  "relevant_chunk_ids": ["KB05_S9"],
+  "expected_evidence": "All rooms must be free from mould and damp caused by or related to the building structure. Structural causes of mould or damp may require action by the rental provider.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q019",
+  "kb_topic": "KB05",
+  "question": "Does the rental provider have to supply rubbish and recycling bins?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rental Properties - Minimum Standards",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/minimum-standards/minimum-standards-for-rental-properties",
+  "relevant_chunk_ids": ["KB05_S13"],
+  "expected_evidence": "Rental providers must supply rubbish and recycling bins that are vermin-proof and meet relevant council collection standards.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q020",
+  "kb_topic": "KB05",
+  "question": "What can I do if the property does not meet the minimum rental standards?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rental Properties - Minimum Standards",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/repairs-alterations-safety-and-pets/minimum-standards/minimum-standards-for-rental-properties",
+  "relevant_chunk_ids": ["KB05_S18"],
+  "expected_evidence": "If a property does not meet the minimum standards, a renter can ask the rental provider to make repairs or changes. If the agreement has been signed but the renter has not moved in, they can generally end the agreement or move in and request an urgent repair. If already living there, failure to meet a minimum standard may also amount to an urgent repair issue.",
+  "expected_behavior": "answer"
 }
 ]
