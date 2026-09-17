@@ -47,4 +47,52 @@
     "expected_evidence": "If the rental provider or agent does not respond promptly to an urgent repair request, a renter may arrange and pay for the repair themselves when the cost is $2,500 or less, keep receipts, and request reimbursement.",
     "expected_behavior": "answer"
   }
+  {
+  "question_id": "Q005",
+  "kb_topic": "KB02",
+  "question": "What reasons can a rental provider claim money from the bond?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Bond Claims and Refunds",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/bond/bond-claims-and-refunds",
+  "relevant_chunk_ids": ["KB02_S2"],
+  "expected_evidence": "A rental provider may claim compensation from the bond for property damage, unpaid rent or other charges after the rental agreement ends, failure to leave the property reasonably clean, missing items, or certain unauthorised changes to the property.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q006",
+  "kb_topic": "KB02",
+  "question": "Can my landlord take money from my bond for normal wear and tear?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Bond Claims and Refunds",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/bond/bond-claims-and-refunds",
+  "relevant_chunk_ids": ["KB02_S4"],
+  "expected_evidence": "Rental providers cannot claim bond to cover fair wear and tear, which includes deterioration caused by reasonable use of the property or natural environmental forces.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q007",
+  "kb_topic": "KB02",
+  "question": "Can a renter start their own bond claim after the rental agreement ends?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Bond Claims and Refunds",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/bond/bond-claims-and-refunds",
+  "relevant_chunk_ids": ["KB02_S9"],
+  "expected_evidence": "Any renter whose name is listed on the bond can start a bond claim after the rental agreement ends. The renter must authenticate their identity with Service Victoria and does not need to wait for the rental provider to start the claim.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q008",
+  "kb_topic": "KB02",
+  "question": "How long does the rental provider have to start a bond claim after I move out?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Bond Claims and Refunds",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/bond/bond-claims-and-refunds",
+  "relevant_chunk_ids": ["KB02_S7"],
+  "expected_evidence": "A rental provider must start a bond claim with the RTBA within 14 days of the rental agreement ending unless a renter starts the claim first.",
+  "expected_behavior": "answer"
+}
 ]
