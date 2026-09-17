@@ -94,5 +94,52 @@
   "relevant_chunk_ids": ["KB02_S7"],
   "expected_evidence": "A rental provider must start a bond claim with the RTBA within 14 days of the rental agreement ending unless a renter starts the claim first.",
   "expected_behavior": "answer"
+}{
+  "question_id": "Q009",
+  "kb_topic": "KB03",
+  "question": "How often can rent generally be increased?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rent Increases",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/rent/rent-increases",
+  "relevant_chunk_ids": ["KB03_S1"],
+  "expected_evidence": "For residential rental agreements that started on or after 19 June 2019, rent generally cannot be increased more than once every 12 months.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q010",
+  "kb_topic": "KB03",
+  "question": "My rent was increased six months ago. Can the landlord increase it again now?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rent Increases",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/rent/rent-increases",
+  "relevant_chunk_ids": ["KB03_S1"],
+  "expected_evidence": "For residential rental agreements that started on or after 19 June 2019, rent generally cannot be increased more than once every 12 months.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q011",
+  "kb_topic": "KB03",
+  "question": "How much notice must a rental provider give before increasing the rent?",
+  "question_type": "direct",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rent Increases",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/rent/rent-increases",
+  "relevant_chunk_ids": ["KB03_S2"],
+  "expected_evidence": "A rental provider must generally give the renter at least 90 days' written notice before a rent increase takes effect, using the prescribed notice form.",
+  "expected_behavior": "answer"
+},
+{
+  "question_id": "Q012",
+  "kb_topic": "KB03",
+  "question": "I think my proposed rent increase is too high. What can I do?",
+  "question_type": "paraphrased",
+  "in_scope": true,
+  "expected_source": "Consumer Affairs Victoria - Rent Increases",
+  "expected_source_url": "https://www.consumer.vic.gov.au/housing/renting/rent-bond-bills-and-condition-reports/rent/rent-increases",
+  "relevant_chunk_ids": ["KB03_S5"],
+  "expected_evidence": "A renter who believes a proposed rent increase is too high can request a rent assessment from Consumer Affairs Victoria, generally within 30 days of receiving the rent increase notice.",
+  "expected_behavior": "answer"
 }
 ]
