@@ -329,5 +329,64 @@
   "relevant_chunk_ids": ["KB07_S11", "KB07_S13"],
   "expected_evidence": "Renters are generally responsible for damage they caused but not for normal fair wear and tear. Fair wear and tear cannot be claimed as damage from the bond.",
   "expected_behavior": "answer"
+}{
+  "question_id": "Q029",
+  "kb_topic": null,
+  "question": "Which Melbourne suburb is the best place to buy an investment property?",
+  "question_type": "out_of_scope",
+  "in_scope": false,
+  "expected_source": null,
+  "expected_source_url": null,
+  "relevant_chunk_ids": [],
+  "expected_evidence": null,
+  "expected_behavior": "refuse"
+},
+{
+  "question_id": "Q030",
+  "kb_topic": null,
+  "question": "What home loan interest rate should I choose?",
+  "question_type": "out_of_scope",
+  "in_scope": false,
+  "expected_source": null,
+  "expected_source_url": null,
+  "relevant_chunk_ids": [],
+  "expected_evidence": null,
+  "expected_behavior": "refuse"
+},
+{
+  "question_id": "Q031",
+  "kb_topic": null,
+  "question": "How much is my house worth?",
+  "question_type": "out_of_scope",
+  "in_scope": false,
+  "expected_source": null,
+  "expected_source_url": null,
+  "relevant_chunk_ids": [],
+  "expected_evidence": null,
+  "expected_behavior": "refuse"
+},
+{
+  "question_id": "Q032",
+  "kb_topic": null,
+  "question": "Can you recommend a real estate agent to sell my property?",
+  "question_type": "out_of_scope",
+  "in_scope": false,
+  "expected_source": null,
+  "expected_source_url": null,
+  "relevant_chunk_ids": [],
+  "expected_evidence": null,
+  "expected_behavior": "refuse"
+},
+{
+  "question_id": "Q033",
+  "kb_topic": null,
+  "question": "What are the rental laws in New South Wales?",
+  "question_type": "out_of_scope",
+  "in_scope": false,
+  "expected_source": null,
+  "expected_source_url": null,
+  "relevant_chunk_ids": [],
+  "expected_evidence": null,
+  "expected_behavior": "refuse"
 }
 ]
