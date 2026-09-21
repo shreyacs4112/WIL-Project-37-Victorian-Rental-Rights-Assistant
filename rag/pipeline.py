@@ -12,6 +12,24 @@ _hf_client = InferenceClient(
     token=os.getenv("HF_TOKEN"),
 )
 
+def is_rental_rights_question(question: str) -> bool:
+    """
+    Check whether a question is within the scope of the
+    Victorian Rental Rights Assistant.
+    """
+    rental_terms = {
+        "rent", "rental", "renter", "tenant", "tenancy",
+        "landlord", "property", "lease", "agreement",
+        "bond", "repair", "repairs", "heater", "heating",
+        "inspection", "entry", "notice", "eviction",
+        "vacate", "rent increase", "minimum standards",
+        "condition report", "vcat"
+    }
+
+    question_lower = question.lower()
+
+    return any(term in question_lower for term in rental_terms)
+
 def retrieve_context(question: str, top_k: int = 5) -> List[Dict]:
     """
     Retrieve the most relevant rental-rights knowledge-base chunks
@@ -100,7 +118,19 @@ def run_rag_pipeline(question: str) -> Dict:
     """
     Baseline end-to-end RAG pipeline.
     """
-
+    if not is_rental_rights_question(question):
+        return {
+            "question": question,
+            "answer": (
+                "I can only help with questions about Victorian rental rights "
+                "and responsibilities. Please ask a question related to renting "
+                "in Victoria."
+            ),
+            "retrieved_chunks": [],
+            "context": "",
+            "sources": []
+        }
+    
     retrieved_chunks = retrieve_context(question)
 
     context = build_context(retrieved_chunks)
