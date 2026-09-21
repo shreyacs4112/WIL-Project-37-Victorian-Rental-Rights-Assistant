@@ -1,9 +1,16 @@
+import os
 from typing import List, Dict
+from huggingface_hub import InferenceClient
+
 from retrieval.bm25_retrieval import BM25Retriever
 from retrieval.load_kb import load_knowledge_base
 
 _chunks = load_knowledge_base()
 _retriever = BM25Retriever(_chunks)
+_hf_client = InferenceClient(
+    model="Qwen/Qwen3-4B-Instruct-2507",
+    token=os.getenv("HF_TOKEN"),
+)
 
 def retrieve_context(question: str, top_k: int = 5) -> List[Dict]:
     """
@@ -40,20 +47,53 @@ def build_context(retrieved_chunks: List[Dict]) -> str:
 
 def generate_answer(question: str, context: str) -> str:
     """
-    Temporary generation interface.
-
-    This will later be connected to the chosen LLM.
+    Generate a grounded answer using the retrieved rental-rights context.
     """
     if not context:
         return (
-            "No relevant knowledge-base evidence was retrieved yet. "
-            "The retrieval and generation components are still being integrated."
+            "I could not find enough relevant information in the Victorian "
+            "rental-rights knowledge base to answer this question."
         )
 
-    return (
-        "A source-grounded answer will be generated here using "
-        "the retrieved rental-rights context."
+    system_prompt = """
+You are a Victorian Rental Rights Assistant.
+
+Answer the user's question using ONLY the information contained in the
+retrieved context provided to you.
+
+Rules:
+- Do not use outside knowledge.
+- Do not invent legal requirements, timeframes, amounts, rights, or procedures.
+- If the retrieved context does not contain enough information to answer the
+  question, clearly say that there is not enough information in the available
+  evidence.
+- Keep the answer clear and concise.
+- Do not claim to provide personalised legal advice.
+- Do not invent sources or citations. Sources are displayed separately by
+  the application.
+"""
+
+    user_prompt = f"""
+Retrieved context:
+
+{context}
+
+User question:
+{question}
+
+Provide a helpful answer based only on the retrieved context.
+"""
+
+    response = _hf_client.chat_completion(
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        max_tokens=400,
+        temperature=0.2,
     )
+
+    return response.choices[0].message.content.strip()
 
 
 def run_rag_pipeline(question: str) -> Dict:
