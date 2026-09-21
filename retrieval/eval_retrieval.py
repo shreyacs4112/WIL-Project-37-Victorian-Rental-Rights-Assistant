@@ -30,33 +30,62 @@ def ndcg_at_k(ranked_chunk_ids, relevant_ids, k):
     return dcg / idcg if idcg > 0 else 0.0
 
 
+def hit_at_k(ranked_chunk_ids, relevant_ids, k):
+    return int(
+        any(
+            chunk_id in relevant_ids
+            for chunk_id in ranked_chunk_ids[:k]
+        )
+    )
+
 def evaluate(retriever, test_set, k_values=(1, 3, 5)):
     scores = {k: [] for k in k_values}
+    hit_scores = {k: [] for k in k_values}
     for item in test_set:
-        query = item["query"]
+        query = item.get("question", item.get("query"))
         relevant_ids = set(item["relevant_chunk_ids"])
         results = retriever.search(query, top_k=max(k_values))
         ranked_ids = [chunk.chunk_id for chunk, _ in results]
         for k in k_values:
             scores[k].append(ndcg_at_k(ranked_ids, relevant_ids, k))
-    return {k: sum(v) / len(v) for k, v in scores.items()}
+            hit_scores[k].append(hit_at_k(ranked_ids, relevant_ids, k))
+    return (
+    {k: sum(v) / len(v) for k, v in scores.items()},
+    {k: sum(v) / len(v) for k, v in hit_scores.items()},
+)
 
 
 if __name__ == "__main__":
     chunks = load_knowledge_base()
-    with open(os.path.join(os.path.dirname(__file__), "test_questions.json")) as f:
-        test_set = json.load(f)
+    
+    evaluation_path = os.path.join(
+        os.path.dirname(__file__),
+        "..",
+        "evaluation",
+        "evaluation_set.json"
+    )
+    with open(evaluation_path, encoding="utf-8") as f:
+      test_set = json.load(f)
+       
+    test_set = [
+      item for item in test_set
+      if item["in_scope"]
+]
 
     print(f"Evaluating on {len(test_set)} test questions over {len(chunks)} chunks.\n")
 
     bm25 = BM25Retriever(chunks)
-    bm25_scores = evaluate(bm25, test_set)
+    bm25_scores, bm25_hits = evaluate(bm25, test_set)
     print("BM25 retrieval:")
     for k, score in bm25_scores.items():
         print(f"  NDCG@{k} = {score:.4f}")
+    for k, score in bm25_hits.items():
+        print(f"  Hit@{k} = {score:.4f}")
 
     dense = DenseRetriever(chunks)
-    dense_scores = evaluate(dense, test_set)
+    dense_scores, dense_hits = evaluate(dense, test_set)
     print("\nDense (FAISS) retrieval:")
     for k, score in dense_scores.items():
         print(f"  NDCG@{k} = {score:.4f}")
+    for k, score in dense_hits.items():
+        print(f"  Hit@{k} = {score:.4f}")
