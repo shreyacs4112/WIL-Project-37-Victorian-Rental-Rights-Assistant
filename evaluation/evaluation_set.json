@@ -46,7 +46,7 @@
     "relevant_chunk_ids": ["KB01_S5"],
     "expected_evidence": "If the rental provider or agent does not respond promptly to an urgent repair request, a renter may arrange and pay for the repair themselves when the cost is $2,500 or less, keep receipts, and request reimbursement.",
     "expected_behavior": "answer"
-  }
+  },
   {
   "question_id": "Q005",
   "kb_topic": "KB02",
@@ -94,7 +94,8 @@
   "relevant_chunk_ids": ["KB02_S7"],
   "expected_evidence": "A rental provider must start a bond claim with the RTBA within 14 days of the rental agreement ending unless a renter starts the claim first.",
   "expected_behavior": "answer"
-}{
+},
+{
   "question_id": "Q009",
   "kb_topic": "KB03",
   "question": "How often can rent generally be increased?",
@@ -141,7 +142,8 @@
   "relevant_chunk_ids": ["KB03_S5"],
   "expected_evidence": "A renter who believes a proposed rent increase is too high can request a rent assessment from Consumer Affairs Victoria, generally within 30 days of receiving the rent increase notice.",
   "expected_behavior": "answer"
-}{
+},
+{
   "question_id": "Q013",
   "kb_topic": "KB04",
   "question": "How much notice is required for a routine property inspection?",
@@ -188,7 +190,8 @@
   "relevant_chunk_ids": ["KB04_S9"],
   "expected_evidence": "For a sales inspection involving prospective buyers, the renter must generally receive compensation equal to the greater of half a day's rent or $30.",
   "expected_behavior": "answer"
-}{
+},
+{
   "question_id": "Q017",
   "kb_topic": "KB05",
   "question": "What heating is required in a rental property?",
@@ -235,7 +238,8 @@
   "relevant_chunk_ids": ["KB05_S18"],
   "expected_evidence": "If a property does not meet the minimum standards, a renter can ask the rental provider to make repairs or changes. If the agreement has been signed but the renter has not moved in, they can generally end the agreement or move in and request an urgent repair. If already living there, failure to meet a minimum standard may also amount to an urgent repair issue.",
   "expected_behavior": "answer"
-}{
+},
+{
   "question_id": "Q021",
   "kb_topic": "KB06",
   "question": "How long do I have to return the completed condition report after moving in?",
@@ -282,7 +286,8 @@
   "relevant_chunk_ids": ["KB06_S14"],
   "expected_evidence": "Renters should keep important records including the rental agreement, condition report, photographs, bond receipt and bond number, rent records, repair requests, communications with the rental provider or agent, and notices received.",
   "expected_behavior": "answer"
-}{
+},
+{
   "question_id": "Q025",
   "kb_topic": "KB07",
   "question": "How much notice does a renter generally need to give when leaving at the end of a rental agreement?",
@@ -329,7 +334,8 @@
   "relevant_chunk_ids": ["KB07_S11", "KB07_S13"],
   "expected_evidence": "Renters are generally responsible for damage they caused but not for normal fair wear and tear. Fair wear and tear cannot be claimed as damage from the bond.",
   "expected_behavior": "answer"
-}{
+},
+{
   "question_id": "Q029",
   "kb_topic": null,
   "question": "Which Melbourne suburb is the best place to buy an investment property?",
