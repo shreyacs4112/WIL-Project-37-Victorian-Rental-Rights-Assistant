@@ -41,6 +41,7 @@ def hit_at_k(ranked_chunk_ids, relevant_ids, k):
 def evaluate(retriever, test_set, k_values=(1, 3, 5)):
     scores = {k: [] for k in k_values}
     hit_scores = {k: [] for k in k_values}
+    failed_questions = {k: [] for k in k_values}
     for item in test_set:
         query = item.get("question", item.get("query"))
         relevant_ids = set(item["relevant_chunk_ids"])
@@ -49,9 +50,13 @@ def evaluate(retriever, test_set, k_values=(1, 3, 5)):
         for k in k_values:
             scores[k].append(ndcg_at_k(ranked_ids, relevant_ids, k))
             hit_scores[k].append(hit_at_k(ranked_ids, relevant_ids, k))
+
+        if hit_scores[k][-1] == 0:
+            failed_questions[k].append(item["question_id"])
     return (
     {k: sum(v) / len(v) for k, v in scores.items()},
     {k: sum(v) / len(v) for k, v in hit_scores.items()},
+    failed_questions,
 )
 
 
@@ -75,17 +80,21 @@ if __name__ == "__main__":
     print(f"Evaluating on {len(test_set)} test questions over {len(chunks)} chunks.\n")
 
     bm25 = BM25Retriever(chunks)
-    bm25_scores, bm25_hits = evaluate(bm25, test_set)
+    bm25_scores, bm25_hits, bm25_failed = evaluate(bm25, test_set)
     print("BM25 retrieval:")
     for k, score in bm25_scores.items():
         print(f"  NDCG@{k} = {score:.4f}")
     for k, score in bm25_hits.items():
         print(f"  Hit@{k} = {score:.4f}")
+    for k, failed in bm25_failed.items():
+        print(f"  Failed@{k}: {failed}")
 
     dense = DenseRetriever(chunks)
-    dense_scores, dense_hits = evaluate(dense, test_set)
+    dense_scores, dense_hits, dense_failed = evaluate(dense, test_set)
     print("\nDense (FAISS) retrieval:")
     for k, score in dense_scores.items():
         print(f"  NDCG@{k} = {score:.4f}")
     for k, score in dense_hits.items():
         print(f"  Hit@{k} = {score:.4f}")
+    for k, failed in dense_failed.items():
+        print(f"  Failed@{k}: {failed}")
