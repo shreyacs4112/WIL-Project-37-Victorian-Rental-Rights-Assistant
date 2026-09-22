@@ -9,7 +9,7 @@ from retrieval.load_kb import load_knowledge_base
 _chunks = load_knowledge_base()
 _retriever = BM25Retriever(_chunks)
 _hf_client = InferenceClient(
-    model="Qwen/Qwen3-4B-Instruct-2507",
+    model="meta-llama/Llama-3.1-8B-Instruct",
     token=os.getenv("HF_TOKEN"),
 )
 
@@ -128,16 +128,23 @@ User question:
 Provide a helpful answer based only on the retrieved context.
 """
 
-    response = _hf_client.chat_completion(
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ],
-        max_tokens=400,
-        temperature=0.2,
-    )
+    try:
+        response = _hf_client.chat_completion(
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            max_tokens=400,
+            temperature=0.2,
+        )
 
-    return response.choices[0].message.content.strip()
+        return response.choices[0].message.content.strip()
+
+    except Exception:
+        return (
+            "Answer generation is temporarily unavailable. "
+            "Please refer to the retrieved evidence and sources below."
+        )
 
 
 def run_rag_pipeline(question: str) -> Dict:
