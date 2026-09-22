@@ -1,4 +1,5 @@
 import os
+import re
 from typing import List, Dict
 from huggingface_hub import InferenceClient
 
@@ -11,6 +12,50 @@ _hf_client = InferenceClient(
     model="meta-llama/Llama-3.1-8B-Instruct",
     token=os.getenv("HF_TOKEN"),
 )
+
+
+def is_rental_rights_question(question: str) -> bool:
+    """
+    Check whether a question is within the scope of the
+    Victorian Rental Rights Assistant.
+    """
+    question_lower = question.lower().strip()
+
+    # Rental questions explicitly about another Australian
+    # jurisdiction are outside this assistant's scope.
+    non_victorian_locations = {
+        "new south wales", "nsw",
+        "queensland", "qld",
+        "south australia", "sa",
+        "western australia", "wa",
+        "tasmania", "tas",
+        "northern territory", "nt",
+        "australian capital territory", "act",
+    }
+
+    for location in non_victorian_locations:
+        if re.search(rf"\b{re.escape(location)}\b", question_lower):
+            return False
+
+    rental_terms = {
+        "rent", "rental", "renter", "renters",
+        "tenant", "tenants", "tenancy",
+        "landlord", "property manager", "rental provider",
+        "lease", "rental agreement",
+        "bond", "repair", "repairs",
+        "heater", "heating",
+        "inspection", "entry",
+        "notice", "eviction",
+        "vacate", "moving out", "moving in",
+        "rent increase", "minimum standards",
+        "condition report", "vcat",
+    }
+
+    return any(
+        re.search(rf"\b{re.escape(term)}\b", question_lower)
+        for term in rental_terms
+    )
+
 
 def retrieve_context(question: str, top_k: int = 5) -> List[Dict]:
     """
@@ -108,6 +153,19 @@ def run_rag_pipeline(question: str) -> Dict:
     Baseline end-to-end RAG pipeline.
     """
 
+    if not is_rental_rights_question(question):
+        return {
+            "question": question,
+            "answer": (
+                "I can only help with questions about Victorian rental rights "
+                "and responsibilities. Please ask a question related to renting "
+                "in Victoria."
+            ),
+            "retrieved_chunks": [],
+            "context": "",
+            "sources": []
+        }
+    
     retrieved_chunks = retrieve_context(question)
 
     context = build_context(retrieved_chunks)
