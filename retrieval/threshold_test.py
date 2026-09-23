@@ -20,11 +20,11 @@ on_topic_queries = [
 ]
 
 off_topic_queries = [
-    "What's the capital of France?",
-    "How do I cook a lasagna?",
-    "What's the weather like today?",
-    "Who won the last World Cup?",
-    "How do I fix a flat tire on my car?",
+    "Which Melbourne suburb is the best place to buy an investment property?",
+    "What home loan interest rate should I choose?",
+    "How much is my house worth?",
+    "Can you recommend a real estate agent to sell my property?",
+    "What are the rental laws in New South Wales?",
 ]
 
 print("=== ON-TOPIC QUERIES (top score expected HIGH) ===")
