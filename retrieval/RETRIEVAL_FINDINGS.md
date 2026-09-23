@@ -68,24 +68,38 @@ and its avoidance of the cross-document confusion BM25 exhibits. BM25 is
 retained in the codebase as a documented comparison baseline.
 
 
+
 ## Confidence threshold for unsupported questions
 
-To detect questions the knowledge base cannot answer (so the chatbot can
-respond safely instead of hallucinating), we tested dense retrieval's top-1
-similarity score on 5 on-topic and 5 clearly off-topic queries:
+To detect questions the knowledge base cannot answer, we tested dense
+retrieval's top-1 similarity score on 5 on-topic queries and, initially,
+5 generic off-topic queries (e.g. "capital of France"), which showed a
+clean separation (on-topic 0.52–0.81, off-topic 0.10–0.26) with no overlap.
 
-| Query type | Score range |
-|---|---|
-| On-topic (rental rights) | 0.523 – 0.810 |
-| Off-topic (unrelated) | 0.103 – 0.263 |
+However, testing against the team's more realistic out-of-scope evaluation
+questions (evaluation/evaluation_set.json, Q029–Q033) revealed this
+separation does not hold for topically adjacent but out-of-scope questions:
 
-There is a clear separation with no overlap between the two groups.
+| Query | Score | Actually in scope? |
+|---|---|---|
+| "What are the rental laws in New South Wales?" | 0.571 | No (wrong jurisdiction) |
+| "Can you recommend a real estate agent to sell my property?" | 0.474 | No |
+| Lowest genuine on-topic question | 0.523 | Yes |
 
-**Chosen threshold: 0.4** — if the top retrieved chunk's similarity score is
-below 0.4, the question is treated as outside the knowledge base's scope,
-and the chatbot returns a safe fallback response instead of attempting to
-answer.
+**Finding:** a single global similarity threshold cannot reliably separate
+these cases, since jurisdiction-adjacent or property-related-but-out-of-scope
+questions share enough vocabulary with genuine Victorian rental questions to
+score similarly under dense embeddings. Generic off-topic tests (e.g.
+unrelated topics like cooking or weather) are not representative of the
+harder, realistic edge cases a chatbot will actually face.
 
-**Limitation:** this threshold was determined from a small sample (5 queries
-per group) and may need adjustment based on real usage patterns once the
-chatbot is tested with a wider range of genuine user questions.
+**Revised approach:** similarity-based thresholding alone is insufficient.
+Recommend combining it with a lightweight rule-based check (e.g. flagging
+explicit non-Victorian jurisdiction keywords such as "NSW", "Queensland",
+"interstate", or clearly non-tenancy request types such as "recommend an
+agent") as a safety net layered on top of the similarity threshold, rather
+than relying on similarity score alone.
+
+This is flagged as a known limitation for the final report rather than a
+solved problem — it reflects a genuine, realistic challenge in scope
+detection for domain-specific RAG assistants.
