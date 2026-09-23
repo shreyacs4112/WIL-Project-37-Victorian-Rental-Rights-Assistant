@@ -119,3 +119,50 @@ Based on the team's retrieval evaluation (evaluation/retrieval_evaluation_result
 question retrieves the correct chunk. Since a missing correct chunk means the
 LLM cannot generate a grounded answer regardless of prompt quality, full
 coverage was prioritised over a smaller, less noisy context window.
+
+
+## Investigation of failed retrieval cases (Q002, Q008, Q014, Q020, Q027)
+
+The team's evaluation flagged 5 questions where dense retrieval did not
+rank the expected chunk within the tested cutoff. Re-running each with
+full top-5 results (`retrieval/diagnose_failures.py`) shows:
+
+| ID | Expected chunk | Rank found | Top-5 hit? |
+|---|---|---|---|
+| Q002 | KB01_S2 | 3 | Yes |
+| Q008 | KB02_S7 | 3 | Yes |
+| Q014 | KB04_S4 | 5 | Yes |
+| Q020 | KB05_S18 | 4 | Yes |
+| Q027 | KB07_S10 | 1 | Yes (correctly ranked first) |
+
+**Finding:** the correct chunk is present within top-5 for every case
+(the cutoff actually used by the production pipeline, per the top-K=5
+decision above). Q027 in particular is not a genuine failure — the
+correct chunk is ranked first.
+
+**Root cause for Q002, Q008, Q014, Q020:** these are not retrieval bugs,
+but cases of legitimate content overlap across knowledge-base documents.
+Several rental-rights rules are restated or cross-referenced in more than
+one source document:
+
+- Minimum-standards non-compliance appears in both KB05 (dedicated
+  section) and KB06 (moving-in context)
+- Bond-claim timing appears in both KB02 (dedicated section) and KB07
+  (moving-out context)
+- Property-showing timing (KB04_S7/S8) is semantically close to general
+  entry-hours (KB04_S4), since both concern notice periods and timing
+
+Dense retrieval is correctly surfacing topically relevant chunks; it is
+not always selecting the single chunk the evaluation set designates as
+canonical when multiple chunks legitimately contain relevant information.
+
+**Ground-truth correction:** for Q008, `KB07_S13` ("Bond After Moving
+Out") also directly and correctly answers the question and should be
+added as an additional valid `relevant_chunk_id`, consistent with other
+multi-answer questions already in the evaluation set (e.g. Q013, Q028).
+
+**Conclusion:** since the correct evidence reaches the LLM in all cases
+via the finalised top-K=5, this is not treated as a critical retrieval
+bug requiring a code fix. It is documented here as a known content-overlap
+characteristic of the knowledge base, with one ground-truth correction
+recommended above.
