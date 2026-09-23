@@ -66,3 +66,26 @@ fully captured by sentence embedding similarity.
 for the chatbot, based on its consistent NDCG advantage across all cutoffs
 and its avoidance of the cross-document confusion BM25 exhibits. BM25 is
 retained in the codebase as a documented comparison baseline.
+
+
+## Confidence threshold for unsupported questions
+
+To detect questions the knowledge base cannot answer (so the chatbot can
+respond safely instead of hallucinating), we tested dense retrieval's top-1
+similarity score on 5 on-topic and 5 clearly off-topic queries:
+
+| Query type | Score range |
+|---|---|
+| On-topic (rental rights) | 0.523 – 0.810 |
+| Off-topic (unrelated) | 0.103 – 0.263 |
+
+There is a clear separation with no overlap between the two groups.
+
+**Chosen threshold: 0.4** — if the top retrieved chunk's similarity score is
+below 0.4, the question is treated as outside the knowledge base's scope,
+and the chatbot returns a safe fallback response instead of attempting to
+answer.
+
+**Limitation:** this threshold was determined from a small sample (5 queries
+per group) and may need adjustment based on real usage patterns once the
+chatbot is tested with a wider range of genuine user questions.
