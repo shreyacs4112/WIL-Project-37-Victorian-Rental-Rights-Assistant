@@ -1,9 +1,60 @@
+import os
+import re
 from typing import List, Dict
+from huggingface_hub import InferenceClient
+
 from retrieval.bm25_retrieval import BM25Retriever
 from retrieval.load_kb import load_knowledge_base
 
 _chunks = load_knowledge_base()
 _retriever = BM25Retriever(_chunks)
+_hf_client = InferenceClient(
+    model="meta-llama/Llama-3.1-8B-Instruct",
+    token=os.getenv("HF_TOKEN"),
+)
+
+def is_rental_rights_question(question: str) -> bool:
+    """
+    Check whether a question is within the scope of the
+    Victorian Rental Rights Assistant.
+    """
+    question_lower = question.lower().strip()
+
+    # Rental questions explicitly about another Australian
+    # jurisdiction are outside this assistant's scope.
+    non_victorian_locations = {
+        "new south wales", "nsw",
+        "queensland", "qld",
+        "south australia", "sa",
+        "western australia", "wa",
+        "tasmania", "tas",
+        "northern territory", "nt",
+        "australian capital territory", "act",
+    }
+
+    for location in non_victorian_locations:
+        if re.search(rf"\b{re.escape(location)}\b", question_lower):
+            return False
+
+    rental_terms = {
+        "rent", "rental", "renter", "renters",
+        "tenant", "tenants", "tenancy",
+        "landlord", "property manager", "rental provider",
+        "lease", "rental agreement",
+        "bond", "repair", "repairs",
+        "heater", "heating",
+        "inspection", "entry",
+        "notice", "eviction",
+        "vacate", "moving out", "moving in",
+        "rent increase", "minimum standards",
+        "condition report", "vcat",
+    }
+
+    return any(
+        re.search(rf"\b{re.escape(term)}\b", question_lower)
+        for term in rental_terms
+    )
+
 
 def retrieve_context(question: str, top_k: int = 5) -> List[Dict]:
     """
@@ -40,27 +91,79 @@ def build_context(retrieved_chunks: List[Dict]) -> str:
 
 def generate_answer(question: str, context: str) -> str:
     """
-    Temporary generation interface.
-
-    This will later be connected to the chosen LLM.
+    Generate a grounded answer using the retrieved rental-rights context.
     """
     if not context:
         return (
-            "No relevant knowledge-base evidence was retrieved yet. "
-            "The retrieval and generation components are still being integrated."
+            "I could not find enough relevant information in the Victorian "
+            "rental-rights knowledge base to answer this question."
         )
 
-    return (
-        "A source-grounded answer will be generated here using "
-        "the retrieved rental-rights context."
-    )
+    system_prompt = """
+You are a Victorian Rental Rights Assistant.
+
+Answer the user's question using ONLY the information contained in the
+retrieved context provided to you.
+
+Rules:
+- Do not use outside knowledge.
+- Do not invent legal requirements, timeframes, amounts, rights, or procedures.
+- If the retrieved context does not contain enough information to answer the
+  question, clearly say that there is not enough information in the available
+  evidence.
+- Keep the answer clear and concise.
+- Do not claim to provide personalised legal advice.
+- Do not invent sources or citations. Sources are displayed separately by
+  the application.
+"""
+
+    user_prompt = f"""
+Retrieved context:
+
+{context}
+
+User question:
+{question}
+
+Provide a helpful answer based only on the retrieved context.
+"""
+
+    try:
+        response = _hf_client.chat_completion(
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            max_tokens=400,
+            temperature=0.2,
+        )
+
+        return response.choices[0].message.content.strip()
+
+    except Exception:
+        return (
+            "Answer generation is temporarily unavailable. "
+            "Please refer to the retrieved evidence and sources below."
+        )
 
 
 def run_rag_pipeline(question: str) -> Dict:
     """
     Baseline end-to-end RAG pipeline.
     """
-
+    if not is_rental_rights_question(question):
+        return {
+            "question": question,
+            "answer": (
+                "I can only help with questions about Victorian rental rights "
+                "and responsibilities. Please ask a question related to renting "
+                "in Victoria."
+            ),
+            "retrieved_chunks": [],
+            "context": "",
+            "sources": []
+        }
+    
     retrieved_chunks = retrieve_context(question)
 
     context = build_context(retrieved_chunks)
