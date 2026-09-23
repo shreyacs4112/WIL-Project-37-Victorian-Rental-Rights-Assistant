@@ -103,3 +103,19 @@ than relying on similarity score alone.
 This is flagged as a known limitation for the final report rather than a
 solved problem — it reflects a genuine, realistic challenge in scope
 detection for domain-specific RAG assistants.
+
+
+## Top-K decision
+
+Based on the team's retrieval evaluation (evaluation/retrieval_evaluation_results.md):
+
+| Cutoff | Dense Hit@K |
+|---|---|
+| K=1 | 22/28 |
+| K=3 | 26/28 |
+| K=5 | 28/28 (100%) |
+
+**Chosen top-K: 5** — this is the smallest K at which every in-scope evaluation
+question retrieves the correct chunk. Since a missing correct chunk means the
+LLM cannot generate a grounded answer regardless of prompt quality, full
+coverage was prioritised over a smaller, less noisy context window.
