@@ -5,89 +5,117 @@ Define the end-to-end RAG architecture for the Victorian Rental Rights
 Assistant, from a user's question through to a generated, source-grounded
 answer.
 
-## Pipeline flow
-
-```
+## Pipeline flow (as currently implemented in `rag/pipeline.py`)
 User question
-      |
-      v
-Dense retrieval (FAISS, sentence-transformers/all-MiniLM-L6-v2)
-      |
-      v
+|
+v
+Rule-based scope check (is_rental_rights_question)
+
+rejects questions naming a non-Victorian Australian jurisdiction
+(NSW, QLD, SA, WA, TAS, NT, ACT)
+accepts only if a rental-related keyword is present
+(rent, tenancy, landlord, bond, repair, inspection, etc.)
+|
+| in scope \ out of scope
+v v
+BM25 retrieval Fixed fallback response
+(retrieval/bm25_ ("I can only help with questions about
+retrieval.py) Victorian rental rights...")
+|
+v
 Top-5 knowledge-base chunks (with similarity scores)
-      |
-      v
-Scope check: is top-1 score high enough to be answerable?
-      |            \
-      | yes          \ no
-      v               v
-Context construction   Safe fallback response
-(join chunk text +      ("outside knowledge base scope")
- source metadata)
-      |
-      v
-LLM (Llama 3.1 8B Instruct, prompted to answer only from
- provided context)
-      |
-      v
+|
+v
+Context construction
+(join chunk text; source metadata carried separately)
+|
+v
+LLM: meta-llama/Llama-3.1-8B-Instruct
+(via Hugging Face Inference API, prompted to answer only
+from provided context, with graceful failure fallback)
+|
+v
 Generated answer + supporting source list
- (source_url, document title, section title per cited chunk)
-```
+(source_url, topic/doc_id, similarity score per retrieved chunk)
+
+
+**Note:** the LLM is called via the Hugging Face hosted Inference API
+(not run fully locally), using a token (`HF_TOKEN`). This should be
+reflected in the project's cost/reproducibility discussion.
 
 ## Retrieval interface
 
-Component: `retrieval/dense_retrieval.py` — `DenseRetriever.search(query, top_k)`
+Component: `retrieval/bm25_retrieval.py` — `BM25Retriever.search(query, top_k)`
+(interface pattern shared by `retrieval/dense_retrieval.py` — see Retriever
+decision below)
 
 - **Input:** a user's natural-language question (string), `top_k` (int)
-- **Output:** a list of `(Chunk, score)` tuples, ranked by descending
-  similarity score
+- **Output:** a list of `(Chunk, score)` tuples, ranked by descending score
 - Each `Chunk` carries: `chunk_id`, `doc_id`, `title`, `category`,
   `authority`, `source_url`, `section_number`, `section_title`, `text`
-
-This interface is consumed directly by `rag/pipeline.py`, which was
-integrated first with BM25 and has since been finalised on dense retrieval
-(see Decision section below).
 
 ## Top-K decision
 
 **Top-K = 5.** Chosen because team evaluation (`evaluation/retrieval_evaluation_results.md`)
 shows Dense Hit@5 = 28/28 (100%) — the smallest K at which every in-scope
-evaluation question retrieves its correct chunk. Missing the correct chunk
-entirely is a harder failure than passing one or two extra chunks of
-context to the LLM.
+evaluation question retrieves its correct chunk. Confirmed by Shreya as the
+value used in the ongoing dense retrieval integration
+(`feature/dense-retrieval-integration`).
 
 ## Retriever decision
 
-**Dense (FAISS) retrieval**, not BM25. Dense outperformed BM25 across every
-NDCG and Hit@K cutoff in both independent evaluations run by the team (see
-`retrieval/RETRIEVAL_FINDINGS.md` and `evaluation/retrieval_evaluation_results.md`).
-BM25 is retained in the codebase as a documented comparison baseline, not
-used in production.
+**Dense (FAISS) retrieval has been evaluated and selected as the intended
+production retriever**, based on its consistent NDCG/Hit@K advantage over
+BM25 in both independent evaluations (see `retrieval/RETRIEVAL_FINDINGS.md`
+and `evaluation/retrieval_evaluation_results.md`).
+
+**Current status:** as of this writing, the `test`/`prod` pipeline
+(`rag/pipeline.py`) still calls `BM25Retriever`. The switch to
+`DenseRetriever` is in progress on branch `feature/dense-retrieval-integration`.
+This document will be updated once that integration is merged.
 
 ## Source metadata and attribution
 
-Every retrieved chunk carries its original `source_url`, document `title`,
-`authority` (Consumer Affairs Victoria), and `section_title`. These are
-passed through context construction and surfaced alongside the generated
-answer, so every chatbot response can be traced back to the specific
-authoritative source section it was grounded in. This directly supports the
-project's traceability and source-attribution requirement.
+Every retrieved chunk carries its original `source_url`, `doc_id`, and
+similarity `score`. These are passed through to the pipeline's `sources`
+output alongside the generated answer, so responses can be traced back to
+their source section.
 
-## Handling unsupported questions
+## Handling unsupported / out-of-scope questions
 
-A similarity-score threshold on the top-1 retrieved chunk is used to detect
-when a question falls outside the knowledge base's scope. Testing found
-that a single global threshold does not reliably separate genuinely
-in-scope questions from topically adjacent but out-of-scope ones (e.g.
-"rental laws in NSW" scored higher than some genuine in-scope questions —
-see `retrieval/RETRIEVAL_FINDINGS.md`). This is documented as a known
-limitation; a rule-based keyword safety net (flagging non-Victorian
-jurisdictions or clearly non-tenancy requests) is recommended as a
-follow-up refinement.
+**Implemented as a rule-based check** (`is_rental_rights_question` in
+`rag/pipeline.py`), run before retrieval:
+- Explicitly rejects questions naming a non-Victorian Australian
+  jurisdiction (e.g. "NSW", "Queensland")
+- Otherwise accepts the question only if it contains a recognised
+  rental-related keyword
+
+This directly implements the recommendation from `retrieval/RETRIEVAL_FINDINGS.md`,
+which found that a similarity-score threshold alone could not reliably
+distinguish genuinely in-scope questions from topically adjacent
+out-of-scope ones (e.g. a question naming a different jurisdiction can
+still score highly on semantic similarity to Victorian content).
+`retrieval/threshold_test.py` documents the specific cases that motivated
+this rule-based approach over a pure similarity threshold.
+
+**Known limitation:** the rule-based keyword list is not exhaustive and may
+require expansion as real usage surfaces new phrasings or edge cases.
+
+## Evaluation note
+
+Two evaluation sets exist in this project:
+- `retrieval/test_questions.json` (44 questions) — used during initial
+  BM25 vs dense development and iteration (see `retrieval/RETRIEVAL_FINDINGS.md`)
+- `evaluation/evaluation_set.json` (28 in-scope + 5 out-of-scope
+  questions) — the team's shared evaluation set, used for the figures
+  reported in `evaluation/retrieval_evaluation_results.md` and in the
+  final report/presentation
+
+The 28-question set is the authoritative source for reported evaluation
+figures going forward.
 
 ## Status
 
-Architecture implemented and deployed to `prod`. Retrieval, context
-construction, and LLM answer generation are integrated in `rag/pipeline.py`.
-Reviewed by the team via ongoing PR review (BM25 integration, dense
-retrieval finalisation, evaluation cross-checks).
+Retrieval finalised (dense selected, top-K=5). BM25→dense integration and
+rule-based scope detection are implemented; dense retrieval integration
+into the live pipeline is in progress.
