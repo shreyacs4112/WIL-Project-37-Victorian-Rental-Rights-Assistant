@@ -3,11 +3,11 @@ import re
 from typing import List, Dict
 from huggingface_hub import InferenceClient
 
-from retrieval.bm25_retrieval import BM25Retriever
+from retrieval.dense_retrieval import DenseRetriever
 from retrieval.load_kb import load_knowledge_base
 
 _chunks = load_knowledge_base()
-_retriever = BM25Retriever(_chunks)
+_retriever = DenseRetriever(_chunks)
 _hf_client = InferenceClient(
     model="meta-llama/Llama-3.1-8B-Instruct",
     token=os.getenv("HF_TOKEN"),
@@ -59,7 +59,7 @@ def is_rental_rights_question(question: str) -> bool:
 def retrieve_context(question: str, top_k: int = 5) -> List[Dict]:
     """
     Retrieve the most relevant rental-rights knowledge-base chunks
-    using the BM25 retriever.
+    using the Dense retriever.
     """
     results = _retriever.search(question, top_k=top_k)
 
