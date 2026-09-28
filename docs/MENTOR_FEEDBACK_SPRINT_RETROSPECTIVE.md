@@ -22,8 +22,7 @@
 
 **Mentor feedback:** Requested a full working demo of the system rather than a written or verbal progress update, so she could see the chatbot running and answering questions.
 
-**Team response:** Prioritised getting the end-to-end pipeline deployed, stable and demoable in the production environment, and planned a final end-to-end evaluation before fixing remaining issues.
-
+**Team response:** Prioritised getting the end-to-end pipeline deployed, stable and demoable in the production environment, and planned a final end-to-end evaluation before fixing remaining issues. The deployed demo at this point uses BM25 retrieval, and the final dense retrieval pipeline has not yet been deployed.    
 ---
 
 ## Sprint Retrospective
@@ -33,7 +32,7 @@
 - Daily check-ins in the group chat surfaced blockers quickly
 - Pull request review caught integration issues early, including documentation that did not match the running pipeline, and avoided duplicated effort
 - The team acted on mentor feedback both times, building evaluation infrastructure after the first meeting and a working deployed demo after the second
-- A failure investigation showed that the retrieval misses were ranking imperfections with the correct chunk still in the top 5, so no risky late code change was needed
+- A failure investigation showed that the flagged retrieval cases all had the correct chunk within the top 5, so no risky late code change was needed
 - Evaluation covered answer faithfulness and source attribution as well as retrieval, which directly answers the mentor's first question about measuring quality
 
 **What did not work as smoothly:**
@@ -42,11 +41,11 @@
 - Several pull requests waited a long time for review, which held up dependent tasks
 
 **Blockers:**
-- The dense retrieval integration is still under review, and the final end-to-end evaluation depends on it being merged and verified on the test deployment
+- The dense retrieval integration has been approved but is awaiting merge and verification on the test deployment, and the final end-to-end evaluation depends on both
 - The sources panel sometimes shows extra top-5 sources that the answer does not need
 
 **Next actions:**
-- Merge the dense retrieval integration and verify it on the test deployment
+- Merge the approved dense retrieval integration and verify it on the test deployment
 - Run the final end-to-end chatbot evaluation and split any fixes by retrieval, integration or generation
 - Update the ground truth with the second valid chunk found during the failure investigation
 - Run final production smoke tests and lock the demo path
