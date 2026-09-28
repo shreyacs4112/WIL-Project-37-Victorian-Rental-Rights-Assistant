@@ -1,13 +1,13 @@
 """
 diagnose_failures.py
-Investigates the 5 questions that dense retrieval failed to rank correctly
-within top-K in the team's evaluation (Q002, Q008, Q014, Q020, Q027).
+Investigates 5 questions flagged by the team's retrieval evaluation
+(Q002, Q008, Q014, Q020, Q027).
 Shows full top-5 ranked results with scores, so we can see where the
 correct chunk actually landed and why.
 """
 
-from load_kb import load_knowledge_base
-from dense_retrieval import DenseRetriever
+from retrieval.load_kb import load_knowledge_base
+from retrieval.dense_retrieval import DenseRetriever
 
 chunks = load_knowledge_base()
 retriever = DenseRetriever(chunks)
