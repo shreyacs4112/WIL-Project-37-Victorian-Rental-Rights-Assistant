@@ -56,7 +56,9 @@ Rule-based scope check
       | in scope             \ out of scope
       v                       v
 Retrieval, top 5          Message explaining the assistant
-      |                   only covers Victorian rental rights
+BM25 in the deployed      only covers Victorian rental rights
+demo, dense once merged
+      |
       v
 Context construction from retrieved chunk text
       |
@@ -72,7 +74,7 @@ together with retrieved evidence and sources
 
 - **Decision:** dense retrieval with FAISS was selected over BM25, because it scored higher at every NDCG and Hit@K cutoff in both evaluations. Top-K is fixed at 5.
 - **Why top 5:** dense retrieval reaches Hit@5 of 28 out of 28, so 5 is the smallest K at which every ground-truth question retrieves its correct chunk. Top 5 is also the set of chunks that actually reaches the LLM.
-- **Current implementation status:** the production pipeline still uses BM25. The dense retrieval component exists and has been evaluated, and its integration into the pipeline has been submitted as a pull request with the required sentence-transformers and faiss-cpu dependencies. At the time of writing that pull request is under review, and the TEST deployment will be verified after it is merged. Until it is merged and promoted, this document treats BM25 as the deployed retriever and dense retrieval as the agreed target.
+- **Current implementation status:** the existing deployed demo uses BM25. The dense retrieval component exists and has been evaluated, and its integration into the pipeline has been submitted as a pull request with the required sentence-transformers and faiss-cpu dependencies. That pull request has been approved and is awaiting merge and verification on the TEST deployment. The final dense pipeline has therefore not yet been deployed. Until it is merged, verified and promoted, this document treats BM25 as the deployed retriever and dense retrieval as the agreed target.
 
 ### Scope detection
 
@@ -86,7 +88,7 @@ This approach was adopted because testing showed that a similarity-score thresho
 ### Generation
 
 - **Model:** Llama 3.1 8B Instruct, accessed through the Hugging Face Inference API
-- **Why Hugging Face:** it keeps the project free of paid API costs and reproducible, in line with the project brief. An earlier choice of Qwen2.5-3B-Instruct was replaced because that model became unavailable.
+- **Why Hugging Face:** it avoids a paid API subscription and supports a reproducible setup, in line with the project brief. Hosted inference still has provider-dependent rate limits and could incur costs beyond free usage, so it is not guaranteed to be cost-free. An earlier choice of Qwen2.5-3B-Instruct was replaced because that model became unavailable.
 - **Grounded prompting:** the prompt instructs the model to answer only from the retrieved context, never to invent legal requirements, timeframes or amounts, and to say clearly when the context is insufficient
 - **Graceful failure handling:** if the LLM provider is unavailable, the pipeline returns a safe fallback message pointing the user to the retrieved evidence instead of crashing
 
@@ -136,9 +138,7 @@ Dense retrieval avoided this cross-document error, since its top results stayed 
 
 ### Investigation of the five failed retrieval cases
 
-A follow-up investigation looked at the five cases where the correct chunk was not ranked first. In every one of them the correct chunk was still within the top 5, which is the set that reaches the LLM. These are ranking imperfections rather than retrieval failures, caused by genuine content overlap between knowledge base documents. Minimum standards content appears in both KB05 and KB06, and bond timing appears in both KB02 and KB07.
-
-One question was also found to have a second legitimately correct chunk, KB07_S13, which was not marked as valid in the ground truth. The recommended action is to add it to the ground truth, and no retrieval code change is needed.
+A follow-up investigation looked at five flagged retrieval cases. One of them, Q027, was in fact ranked first. In the other four the expected chunk was at ranks 3, 3, 5 and 4. In all five the correct chunk was within the top 5, which is the set that reaches the LLM. The four lower-ranked cases are ranking imperfections rather than retrieval failures, caused by genuine content overlap between knowledge base documents. Minimum standards content appears in both KB05 and KB06, and bond timing appears in both KB02 and KB07.
 
 ### Live misranking observed in testing
 
@@ -195,7 +195,7 @@ Feature branch
 
 ### In progress or remaining
 
-- Review and merge of the dense retrieval integration, then verification on the test deployment
+- Merge of the approved dense retrieval integration, then verification on the test deployment and promotion of the final dense pipeline to production
 - Final end-to-end chatbot evaluation, run on the version that includes dense retrieval
 - Fixes for any critical issues found in that evaluation, split by whether they relate to retrieval, integration or generation
 - Ground-truth update to add the second valid chunk for the affected question
