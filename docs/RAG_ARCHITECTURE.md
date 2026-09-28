@@ -116,6 +116,6 @@ figures going forward.
 
 ## Status
 
-Retrieval finalised (dense selected, top-K=5). BM25→dense integration and
-rule-based scope detection are implemented; dense retrieval integration
-into the live pipeline is in progress.
+Retrieval finalised (dense selected, top-K=5). Rule-based scope detection
+is implemented; BM25→dense integration into the live pipeline is in
+progress.

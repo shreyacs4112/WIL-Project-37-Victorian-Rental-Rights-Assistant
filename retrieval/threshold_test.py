@@ -11,8 +11,8 @@ implemented as a rule-based check in rag/pipeline.py instead
 (is_rental_rights_question).
 """
 
-from load_kb import load_knowledge_base
-from dense_retrieval import DenseRetriever
+from retrieval.load_kb import load_knowledge_base
+from retrieval.dense_retrieval import DenseRetriever
 
 chunks = load_knowledge_base()
 retriever = DenseRetriever(chunks)
