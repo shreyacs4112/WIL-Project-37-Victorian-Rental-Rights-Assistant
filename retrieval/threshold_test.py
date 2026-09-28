@@ -5,8 +5,8 @@ through dense retrieval to find a sensible confidence threshold for
 detecting "unanswerable" questions.
 """
 
-from load_kb import load_knowledge_base
-from dense_retrieval import DenseRetriever
+from retrieval.load_kb import load_knowledge_base
+from retrieval.dense_retrieval import DenseRetriever
 
 chunks = load_knowledge_base()
 retriever = DenseRetriever(chunks)
