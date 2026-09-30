@@ -5,38 +5,40 @@ Define the end-to-end RAG architecture for the Victorian Rental Rights
 Assistant, from a user's question through to a generated, source-grounded
 answer.
 
-## Pipeline flow (as currently implemented in `rag/pipeline.py`)
-User question
-|
-v
-Rule-based scope check (is_rental_rights_question)
+## Pipeline flow (as implemented in `rag/pipeline.py` on `test`; `prod` still runs BM25 until promotion)
 
-rejects questions naming a non-Victorian Australian jurisdiction
-(NSW, QLD, SA, WA, TAS, NT, ACT)
-accepts only if a rental-related keyword is present
-(rent, tenancy, landlord, bond, repair, inspection, etc.)
-|
-| in scope \ out of scope
-v v
-BM25 retrieval Fixed fallback response
-(retrieval/bm25_ ("I can only help with questions about
-retrieval.py) Victorian rental rights...")
-|
-v
+```
+User question
+      |
+      v
+Rule-based scope check (is_rental_rights_question)
+ - rejects questions naming a non-Victorian Australian jurisdiction
+   (NSW, QLD, SA, WA, TAS, NT, ACT)
+ - accepts only if a rental-related keyword is present
+   (rent, tenancy, landlord, bond, repair, inspection, etc.)
+      |            \
+      | in scope     \ out of scope
+      v               v
+Dense retrieval         Fixed fallback response
+(retrieval/dense_       ("I can only help with questions about
+ retrieval.py)           Victorian rental rights...")
+      |
+      v
 Top-5 knowledge-base chunks (with similarity scores)
-|
-v
+      |
+      v
 Context construction
 (join chunk text; source metadata carried separately)
-|
-v
+      |
+      v
 LLM: meta-llama/Llama-3.1-8B-Instruct
 (via Hugging Face Inference API, prompted to answer only
-from provided context, with graceful failure fallback)
-|
-v
+ from provided context, with graceful failure fallback)
+      |
+      v
 Generated answer + supporting source list
-(source_url, topic/doc_id, similarity score per retrieved chunk)
+ (source_url, topic/doc_id, similarity score per retrieved chunk)
+```
 
 
 **Note:** the LLM is called via the Hugging Face hosted Inference API
@@ -45,9 +47,9 @@ reflected in the project's cost/reproducibility discussion.
 
 ## Retrieval interface
 
-Component: `retrieval/bm25_retrieval.py` — `BM25Retriever.search(query, top_k)`
-(interface pattern shared by `retrieval/dense_retrieval.py` — see Retriever
-decision below)
+Component: `retrieval/dense_retrieval.py` — `DenseRetriever.search(query, top_k)`
+(`retrieval/bm25_retrieval.py` exposes the same interface and is kept as the
+comparison baseline)
 
 - **Input:** a user's natural-language question (string), `top_k` (int)
 - **Output:** a list of `(Chunk, score)` tuples, ranked by descending score
@@ -58,9 +60,7 @@ decision below)
 
 **Top-K = 5.** Chosen because team evaluation (`evaluation/retrieval_evaluation_results.md`)
 shows Dense Hit@5 = 28/28 (100%) — the smallest K at which every in-scope
-evaluation question retrieves its correct chunk. Confirmed by Shreya as the
-value used in the ongoing dense retrieval integration
-(`feature/dense-retrieval-integration`).
+evaluation question retrieves its correct chunk. This value is used by the dense retrieval integration merged into `test` (PR #26).
 
 ## Retriever decision
 
@@ -69,10 +69,10 @@ production retriever**, based on its consistent NDCG/Hit@K advantage over
 BM25 in both independent evaluations (see `retrieval/RETRIEVAL_FINDINGS.md`
 and `evaluation/retrieval_evaluation_results.md`).
 
-**Current status:** as of this writing, the `test`/`prod` pipeline
-(`rag/pipeline.py`) still calls `BM25Retriever`. The switch to
-`DenseRetriever` is in progress on branch `feature/dense-retrieval-integration`.
-This document will be updated once that integration is merged.
+**Current status:** `rag/pipeline.py` on the `test` branch now uses
+`DenseRetriever` (merged in PR #26). The `prod` branch still uses
+`BM25Retriever` until the TEST deployment is verified and `test` is
+promoted to `prod`.
 
 ## Source metadata and attribution
 
@@ -117,5 +117,5 @@ figures going forward.
 ## Status
 
 Retrieval finalised (dense selected, top-K=5). Rule-based scope detection
-is implemented; BM25→dense integration into the live pipeline is in
-progress.
+is implemented. Dense retrieval is integrated in the `test` pipeline;
+promotion to `prod` is pending TEST verification.
