@@ -22,7 +22,7 @@
 
 **Mentor feedback:** Requested a full working demo of the system rather than a written or verbal progress update, so she could see the chatbot running and answering questions.
 
-**Team response:** Prioritised getting the end-to-end pipeline deployed, stable and demoable in the production environment, and planned a final end-to-end evaluation before fixing remaining issues. Dense retrieval has since been merged into the TEST environment and passed all automated tests, with initial live smoke testing also completed. Formal TEST deployment verification is still pending, and production still runs BM25 pending that verification and promotion.
+**Team response:** Prioritised getting the end-to-end pipeline deployed, stable and demoable in the production environment. Dense retrieval was merged and verified on the TEST environment, and the final end-to-end evaluation was then run across all 33 questions, covering retrieval, generation, refusal behaviour and source attribution. Production has not yet been promoted and still runs BM25.
 
 ---
 
@@ -33,6 +33,7 @@
 - Daily check-ins in the group chat surfaced blockers quickly
 - Pull request review caught integration issues early, including documentation that did not match the running pipeline, and avoided duplicated effort
 - The team acted on mentor feedback both times, building evaluation infrastructure after the first meeting and a working deployed demo after the second
+- The final end-to-end evaluation achieved 100 percent expected-source coverage and 100 percent correct out-of-scope refusals across all 33 questions, directly answering the mentor's original question about how well the system's predictions perform
 - A failure investigation showed that the flagged retrieval cases all had the correct chunk within the top 5, so no risky late code change was needed
 - Evaluation covered answer faithfulness and source attribution as well as retrieval, which directly answers the mentor's first question about measuring quality
 
@@ -42,13 +43,13 @@
 - Several pull requests waited a long time for review, which held up dependent tasks
 
 **Blockers:**
-- TEST deployment verification for the merged dense retrieval integration is still pending, and two ranking issues found during initial smoke testing, one on a repairs question and one on a bond-refund question, need to be covered by the final end-to-end evaluation before production promotion
+- Production has not yet been promoted to dense retrieval and still runs BM25, despite dense being verified and evaluated on TEST
 - The sources panel sometimes shows extra top-5 sources that the answer does not need
 
 **Next actions:**
-- Complete TEST deployment verification for the merged dense retrieval integration
-- Run the final end-to-end evaluation on the verified TEST pipeline, covering the two ranking issues found in smoke testing
+- Promote the verified dense pipeline from TEST to production
+- Update the ground truth to add the second valid chunk found during the earlier retrieval investigation
 - Run the final end-to-end chatbot evaluation and split any fixes by retrieval, integration or generation
 - Update the ground truth with the second valid chunk found during the failure investigation
-- Promote the verified dense pipeline from TEST to production and run final production smoke tests
+- Run final production smoke tests once the pipeline is promoted
 - Update the final documentation with the end-to-end results

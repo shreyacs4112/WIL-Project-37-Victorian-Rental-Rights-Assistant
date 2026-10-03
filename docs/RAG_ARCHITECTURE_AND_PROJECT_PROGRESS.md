@@ -56,8 +56,8 @@ Rule-based scope check
       | in scope             \ out of scope
       v                       v
 Retrieval, top 5          Message explaining the assistant
-Dense on TEST, pending    only covers Victorian rental rights
-verification, BM25 on PROD
+Dense verified on TEST,   only covers Victorian rental rights
+BM25 still on PROD
       |
       v
 Context construction from retrieved chunk text
@@ -74,7 +74,7 @@ together with retrieved evidence and sources
 
 - **Decision:** dense retrieval with FAISS was selected over BM25, because it scored higher at every NDCG and Hit@K cutoff in both evaluations. Top-K is fixed at 5.
 - **Why top 5:** dense retrieval reaches Hit@5 of 28 out of 28, so 5 is the smallest K at which every ground-truth question retrieves its correct chunk. Top 5 is also the set of chunks that actually reaches the LLM.
-- **Current implementation status:** dense retrieval has been merged into the TEST environment. All 16 automated tests passed, and initial live chatbot smoke testing covered repairs, bond refunds, rent increases, property entry, an out-of-jurisdiction question and an unrelated question. Formal TEST deployment verification is still pending completion. The production environment has not yet been promoted and still runs BM25. Two ranking issues were found during the initial smoke testing and are noted below. Until TEST verification is complete and TEST is promoted, this document treats dense retrieval as the current TEST pipeline and BM25 as the current production pipeline.
+- **Current implementation status:** dense retrieval is merged and verified on the TEST environment, confirmed by the final end-to-end evaluation of all 33 questions. The production environment has not yet been promoted and still runs BM25. Until TEST is promoted, this document treats dense retrieval as the current TEST pipeline and BM25 as the current production pipeline.
 
 ### Scope detection
 
@@ -144,7 +144,29 @@ One question was also found to have a second legitimately correct chunk, KB07_S1
 
 ### Ranking issues found during TEST smoke testing
 
-Live testing of the merged dense retrieval pipeline on TEST surfaced two further ranking issues. A broken-heater query ranked chunk KB01_S8 first, ahead of the more relevant repair chunk. A bond-refund query ranked the most relevant chunk, KB07_S13, fourth rather than first. Both are being included in the final end-to-end evaluation so they can be assessed alongside the other retrieval findings before production promotion.
+Live testing of the merged dense retrieval pipeline on TEST surfaced two further ranking issues. A broken-heater query ranked chunk KB01_S8 first, ahead of the more relevant repair chunk. A bond-refund query ranked the most relevant chunk, KB07_S13, fourth rather than first. Both were assessed as part of the final end-to-end evaluation below.
+
+### Final end-to-end evaluation
+
+The complete pipeline, including dense retrieval and answer generation, was evaluated against all 33 questions in the evaluation dataset, made up of 28 in-scope questions, split evenly between direct and paraphrased wording, and 5 out-of-scope control questions.
+
+| Metric | Result |
+|---|---:|
+| At least one expected evidence chunk retrieved | 28 of 28, 100 percent |
+| All expected evidence chunks retrieved | 27 of 28, 96.4 percent |
+| Expected source present | 28 of 28, 100 percent |
+| Correct out-of-scope refusals | 5 of 5, 100 percent |
+| Generation fallbacks remaining after retries | 0 |
+
+Retrieval coverage and out-of-scope refusal were both effectively perfect. The main weaknesses found were in generation rather than retrieval:
+
+- **Generation reliability.** The initial run returned a temporary fallback message for 17 of the 28 in-scope questions. All 17 recovered on retry, with none remaining unresolved, but this shows that generation-service reliability is a real operational limitation even when retrieval works correctly.
+- **Correct retrieval does not guarantee correct reasoning.** One question about a property inspection at 7pm retrieved the correct evidence on permitted entry hours, 8am to 6pm, but the generated answer incorrectly stated that 7pm fell within that window.
+- **Unnecessary uncertainty despite explicit evidence.** One question about a broken heater retrieved context explicitly listing failed heating as an urgent repair, but the generated answer only said the situation might be urgent rather than stating it clearly.
+- **Dropped qualifications.** One question about minimum heating standards retrieved the correct requirement but omitted that it only applies to agreements entered into from 29 March 2023, producing an overgeneralised answer.
+- **Incomplete retrieval without answer failure.** One question was missing one of two expected evidence chunks, KB07_S11, but still produced a correct answer using the other retrieved chunk, KB07_S13.
+
+These findings, together with the two ranking issues found in initial smoke testing, were the main input into deciding whether further fixes were needed before production promotion.
 
 ### Live misranking observed in testing
 
@@ -199,14 +221,16 @@ Feature branch
 - Answer faithfulness and source attribution evaluation completed and in review
 - Documentation corrected to match the implemented system after review feedback
 
-### In progress or remaining
+### Completed, continued
 
-- Completion of TEST deployment verification
-- Resolution of the two ranking issues found during initial TEST smoke testing, as part of the final end-to-end evaluation
-- Promotion of the verified dense pipeline from TEST to production
-- Final end-to-end chatbot evaluation, run on the current TEST pipeline, including the two ranking issues noted above
-- Fixes for any critical issues found in that evaluation, split by whether they relate to retrieval, integration or generation
-- A Streamlit deployment issue on TEST has already been identified and fixed, and the app rebooted and verified
-- Ground-truth update to add the second valid chunk for the affected question
-- Final production deployment and smoke tests
-- Final documentation update with the end-to-end evaluation results, and preparation of the demo
+- TEST deployment verification completed
+- Final end-to-end chatbot evaluation completed across all 33 questions, covering retrieval, generation, refusal behaviour and source attribution
+- A Streamlit deployment dependency issue was identified and fixed, and the app rebooted and verified
+- An LLM provider fallback fix was made to improve generation reliability
+
+### Remaining
+
+- Promotion of the verified dense pipeline from TEST to production, since production currently still runs BM25
+- Ground-truth update to add the second valid chunk, KB07_S13, for the affected question
+- Final production deployment and smoke tests, once the pipeline is promoted
+- Final documentation update confirming production status once promoted, and preparation of the demo
