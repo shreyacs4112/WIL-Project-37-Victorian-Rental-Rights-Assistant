@@ -56,8 +56,8 @@ Rule-based scope check
       | in scope             \ out of scope
       v                       v
 Retrieval, top 5          Message explaining the assistant
-BM25 in the deployed      only covers Victorian rental rights
-demo, dense once merged
+Dense on TEST, pending    only covers Victorian rental rights
+verification, BM25 on PROD
       |
       v
 Context construction from retrieved chunk text
@@ -74,7 +74,7 @@ together with retrieved evidence and sources
 
 - **Decision:** dense retrieval with FAISS was selected over BM25, because it scored higher at every NDCG and Hit@K cutoff in both evaluations. Top-K is fixed at 5.
 - **Why top 5:** dense retrieval reaches Hit@5 of 28 out of 28, so 5 is the smallest K at which every ground-truth question retrieves its correct chunk. Top 5 is also the set of chunks that actually reaches the LLM.
-- **Current implementation status:** the existing deployed demo uses BM25. The dense retrieval component exists and has been evaluated, and its integration into the pipeline has been submitted as a pull request with the required sentence-transformers and faiss-cpu dependencies. That pull request has been approved and is awaiting merge and verification on the TEST deployment. The final dense pipeline has therefore not yet been deployed. Until it is merged, verified and promoted, this document treats BM25 as the deployed retriever and dense retrieval as the agreed target.
+- **Current implementation status:** dense retrieval has been merged into the TEST environment. All 16 automated tests passed, and initial live chatbot smoke testing covered repairs, bond refunds, rent increases, property entry, an out-of-jurisdiction question and an unrelated question. Formal TEST deployment verification is still pending completion. The production environment has not yet been promoted and still runs BM25. Two ranking issues were found during the initial smoke testing and are noted below. Until TEST verification is complete and TEST is promoted, this document treats dense retrieval as the current TEST pipeline and BM25 as the current production pipeline.
 
 ### Scope detection
 
@@ -140,6 +140,12 @@ Dense retrieval avoided this cross-document error, since its top results stayed 
 
 A follow-up investigation looked at five flagged retrieval cases. One of them, Q027, was in fact ranked first. In the other four the expected chunk was at ranks 3, 3, 5 and 4. In all five the correct chunk was within the top 5, which is the set that reaches the LLM. The four lower-ranked cases are ranking imperfections rather than retrieval failures, caused by genuine content overlap between knowledge base documents. Minimum standards content appears in both KB05 and KB06, and bond timing appears in both KB02 and KB07.
 
+One question was also found to have a second legitimately correct chunk, KB07_S13, which was not marked as valid in the ground truth. The recommended action is to add it to the ground truth, and no retrieval code change is needed.
+
+### Ranking issues found during TEST smoke testing
+
+Live testing of the merged dense retrieval pipeline on TEST surfaced two further ranking issues. A broken-heater query ranked chunk KB01_S8 first, ahead of the more relevant repair chunk. A bond-refund query ranked the most relevant chunk, KB07_S13, fourth rather than first. Both are being included in the final end-to-end evaluation so they can be assessed alongside the other retrieval findings before production promotion.
+
 ### Live misranking observed in testing
 
 During chatbot testing, a broken heater question returned a rent increase chunk at rank one under BM25 instead of the repair and heating chunks. This is the same keyword confusion pattern described above and is one of the reasons for moving to dense retrieval.
@@ -195,9 +201,12 @@ Feature branch
 
 ### In progress or remaining
 
-- Merge of the approved dense retrieval integration, then verification on the test deployment and promotion of the final dense pipeline to production
-- Final end-to-end chatbot evaluation, run on the version that includes dense retrieval
+- Completion of TEST deployment verification
+- Resolution of the two ranking issues found during initial TEST smoke testing, as part of the final end-to-end evaluation
+- Promotion of the verified dense pipeline from TEST to production
+- Final end-to-end chatbot evaluation, run on the current TEST pipeline, including the two ranking issues noted above
 - Fixes for any critical issues found in that evaluation, split by whether they relate to retrieval, integration or generation
+- A Streamlit deployment issue on TEST has already been identified and fixed, and the app rebooted and verified
 - Ground-truth update to add the second valid chunk for the affected question
 - Final production deployment and smoke tests
 - Final documentation update with the end-to-end evaluation results, and preparation of the demo

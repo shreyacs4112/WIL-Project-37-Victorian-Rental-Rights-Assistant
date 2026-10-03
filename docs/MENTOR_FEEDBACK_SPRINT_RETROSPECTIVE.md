@@ -22,7 +22,8 @@
 
 **Mentor feedback:** Requested a full working demo of the system rather than a written or verbal progress update, so she could see the chatbot running and answering questions.
 
-**Team response:** Prioritised getting the end-to-end pipeline deployed, stable and demoable in the production environment, and planned a final end-to-end evaluation before fixing remaining issues. The deployed demo at this point uses BM25 retrieval, and the final dense retrieval pipeline has not yet been deployed.    
+**Team response:** Prioritised getting the end-to-end pipeline deployed, stable and demoable in the production environment, and planned a final end-to-end evaluation before fixing remaining issues. Dense retrieval has since been merged into the TEST environment and passed all automated tests, with initial live smoke testing also completed. Formal TEST deployment verification is still pending, and production still runs BM25 pending that verification and promotion.
+
 ---
 
 ## Sprint Retrospective
@@ -36,17 +37,18 @@
 - Evaluation covered answer faithfulness and source attribution as well as retrieval, which directly answers the mentor's first question about measuring quality
 
 **What did not work as smoothly:**
-- Documentation described dense retrieval as deployed before the pipeline actually used it.
+- Documentation described dense retrieval as deployed before the pipeline actually used it, and this was only caught in review
 - Some tasks took longer than expected and briefly blocked downstream integration work
 - Several pull requests waited a long time for review, which held up dependent tasks
 
 **Blockers:**
-- The dense retrieval integration has been approved but is awaiting merge and verification on the test deployment, and the final end-to-end evaluation depends on both
+- TEST deployment verification for the merged dense retrieval integration is still pending, and two ranking issues found during initial smoke testing, one on a repairs question and one on a bond-refund question, need to be covered by the final end-to-end evaluation before production promotion
 - The sources panel sometimes shows extra top-5 sources that the answer does not need
 
 **Next actions:**
-- Merge the approved dense retrieval integration and verify it on the test deployment
+- Complete TEST deployment verification for the merged dense retrieval integration
+- Run the final end-to-end evaluation on the verified TEST pipeline, covering the two ranking issues found in smoke testing
 - Run the final end-to-end chatbot evaluation and split any fixes by retrieval, integration or generation
 - Update the ground truth with the second valid chunk found during the failure investigation
-- Run final production smoke tests and lock the demo path
+- Promote the verified dense pipeline from TEST to production and run final production smoke tests
 - Update the final documentation with the end-to-end results
