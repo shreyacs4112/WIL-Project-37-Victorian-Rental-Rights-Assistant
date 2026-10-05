@@ -3,7 +3,6 @@
 **Group 37 | COSC2669/COSC2816 WIL Project**
 **Status:** Final sprint, ahead of the final presentation
 
----
 
 ## 1. Project Overview
 
@@ -14,7 +13,7 @@ The Victorian Rental Rights Assistant is a Retrieval-Augmented Generation system
 - **Primary authority:** Consumer Affairs Victoria
 - **Out of scope:** rental law outside Victoria, commercial leases, personalised legal advice, non-rental property law, automated legal decision-making, and questions the knowledge base does not support
 
----
+
 
 ## 2. Knowledge Base
 
@@ -43,7 +42,6 @@ Each document is split with section-aware chunking. Every numbered semantic sect
 - The output is `data/processed/kb_chunks.json`, checked by an automated test suite covering required metadata, duplicate or missing IDs, empty sections, and structural integrity
 - The retrieval loader reads directly from this file, so a single chunking implementation is shared across the project
 
----
 
 ## 3. RAG Pipeline Architecture
 
@@ -100,7 +98,6 @@ Every retrieved chunk carries its source URL, document title and category, issui
 
 The chatbot is built with Streamlit. Users type a question, read the generated answer, and expand a panel to inspect the evidence behind it.
 
----
 
 ## 4. Retrieval Evaluation Results
 
@@ -126,7 +123,6 @@ Two evaluation runs were completed, and they use different question sets.
 
 Dense retrieval outperformed BM25 at every cutoff in both runs, with the largest gap at rank 1.
 
----
 
 ## 5. Failure Analysis and Limitations
 
@@ -160,7 +156,7 @@ The complete pipeline, including dense retrieval and answer generation, was eval
 
 Retrieval coverage and out-of-scope refusal were both effectively perfect. The main weaknesses found were in generation rather than retrieval:
 
-- **Generation reliability.** The initial run returned a temporary fallback message for 17 of the 28 in-scope questions. All 17 recovered on retry, with none remaining unresolved, but this shows that generation-service reliability is a real operational limitation even when retrieval works correctly.
+- **Generation reliability.** The initial run returned a temporary fallback message for 19 of the 28 in-scope questions. All 19 recovered on retry, with none remaining unresolved, but this shows that generation-service reliability is a real operational limitation even when retrieval works correctly.
 - **Correct retrieval does not guarantee correct reasoning.** One question about a property inspection at 7pm retrieved the correct evidence on permitted entry hours, 8am to 6pm, but the generated answer incorrectly stated that 7pm fell within that window.
 - **Unnecessary uncertainty despite explicit evidence.** One question about a broken heater retrieved context explicitly listing failed heating as an urgent repair, but the generated answer only said the situation might be urgent rather than stating it clearly.
 - **Dropped qualifications.** One question about minimum heating standards retrieved the correct requirement but omitted that it only applies to agreements entered into from 29 March 2023, producing an overgeneralised answer.
@@ -180,7 +176,6 @@ A similarity-score threshold could not reliably separate jurisdiction-adjacent o
 
 Representative questions were tested across all seven knowledge base topics, plus one out-of-scope question. The generated answers were grounded in the retrieved context. The main issue found was that the sources panel sometimes displayed extra sources from the top 5 chunks that were not directly needed for the answer. This is a display precision limitation rather than a factual error, and it is a candidate for refinement, for example by showing only the sources the answer actually relies on.
 
----
 
 ## 6. Deployment Workflow
 
@@ -203,7 +198,6 @@ Feature branch
 - The test and production environments are separate Streamlit Cloud deployments, and production is reserved for the final submission
 - Trello columns run from Backlog through To Do, In Progress and Testing/Review to Done, mirroring the branch flow
 
----
 
 ## 7. Project Progress Summary
 
@@ -218,13 +212,13 @@ Feature branch
 - Ground-truth evaluation dataset built across all knowledge base topics, including paraphrased and out-of-scope questions
 - Retrieval performance evaluation completed and merged
 - Investigation of failed retrieval cases completed
-- Answer faithfulness and source attribution evaluation completed and in review
+- Answer faithfulness and source attribution evaluation completed and merged
 - Documentation corrected to match the implemented system after review feedback
 
 ### Completed, continued
 
 - TEST deployment verification completed
-- Final end-to-end chatbot evaluation completed across all 33 questions, covering retrieval, generation, refusal behaviour and source attribution
+- Final end-to-end chatbot evaluation completed and merged across all 33 questions, covering retrieval, generation, refusal behaviour and source attribution
 - A Streamlit deployment dependency issue was identified and fixed, and the app rebooted and verified
 - An LLM provider fallback fix was made to improve generation reliability
 

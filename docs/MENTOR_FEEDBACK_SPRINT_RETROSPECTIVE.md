@@ -2,7 +2,6 @@
 
 **Group 37 | COSC2669/COSC2816 WIL Project — Victorian Rental Rights Assistant**
 
----
 
 ## Meeting 1 — 8 September 2026
 
@@ -14,7 +13,6 @@
 - Adopted NDCG at ranks 1, 3 and 5 as the core retrieval evaluation metric
 - Committed to building a proper ground-truth evaluation dataset covering paraphrased and out-of-scope questions, so retrieval and answer quality could be measured systematically
 
----
 
 ## Meeting 2 — 22 September 2026
 
@@ -24,7 +22,6 @@
 
 **Team response:** Prioritised getting the end-to-end pipeline deployed, stable and demoable in the production environment. Dense retrieval was merged and verified on the TEST environment, and the final end-to-end evaluation was then run across all 33 questions, covering retrieval, generation, refusal behaviour and source attribution. Production has not yet been promoted and still runs BM25.
 
----
 
 ## Sprint Retrospective
 
@@ -49,7 +46,4 @@
 **Next actions:**
 - Promote the verified dense pipeline from TEST to production
 - Update the ground truth to add the second valid chunk found during the earlier retrieval investigation
-- Run the final end-to-end chatbot evaluation and split any fixes by retrieval, integration or generation
-- Update the ground truth with the second valid chunk found during the failure investigation
 - Run final production smoke tests once the pipeline is promoted
-- Update the final documentation with the end-to-end results
