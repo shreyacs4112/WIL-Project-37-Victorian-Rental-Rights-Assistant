@@ -1,5 +1,8 @@
 import os
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 from typing import List, Dict
 from huggingface_hub import InferenceClient
 
@@ -140,11 +143,17 @@ Provide a helpful answer based only on the retrieved context.
 
         return response.choices[0].message.content.strip()
 
-    except Exception:
+    
+    except Exception as exc:
+        logger.error(
+            "Hugging Face answer generation failed: %s",
+            type(exc).__name__
+        )
         return (
             "Answer generation is temporarily unavailable. "
             "Please refer to the retrieved evidence and sources below."
         )
+
 
 
 def run_rag_pipeline(question: str) -> Dict:
