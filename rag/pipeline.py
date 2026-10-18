@@ -144,15 +144,22 @@ Provide a helpful answer based only on the retrieved context.
         return response.choices[0].message.content.strip()
 
     
+    
     except Exception as exc:
+        response = getattr(exc, "response", None)
+        status_code = getattr(response, "status_code", None)
+
         logger.error(
-            "Hugging Face answer generation failed: %s",
-            type(exc).__name__
+            "Hugging Face generation failed: %s, HTTP status: %s",
+            type(exc).__name__,
+            status_code
         )
+
         return (
             "Answer generation is temporarily unavailable. "
             "Please refer to the retrieved evidence and sources below."
         )
+
 
 
 
